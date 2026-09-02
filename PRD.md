@@ -20,7 +20,10 @@ static content, no backend.
      with a category tag, one-line description, tech-stack tags, and a link
      out to the project's GitHub repo.
    - **Contact**: placeholder email, GitHub handle (real: `@GeneCLee6`),
-     placeholder LinkedIn.
+     placeholder LinkedIn, Download Resume link. GitHub, LinkedIn, and
+     Resume links also repeat in the header nav (icon links + a Resume
+     button) so they're reachable from any scroll position, not just this
+     section — see `DESIGN.md` §5.
 2. **Resume** (`/resume`)
    - Name/title, Experience, Skills, Projects (recap linking back to Home),
      Education. Optional "Download PDF" affordance (button can exist before
@@ -46,10 +49,10 @@ silently in code.
 ## "Done" for v1
 
 - [x] Visual design direction decided and documented (`DESIGN.md`).
-- [ ] Home page: Header/Hero implemented per the design (scaffold target for
-      today — see `CLAUDE.md` for current status).
-- [ ] Home page: Projects section with all three project cards.
-- [ ] Home page: Contact section.
+- [x] Home page: Header/Hero implemented per the design.
+- [x] Home page: Projects section with all three project cards.
+- [x] Home page: Contact section (with GitHub, placeholder LinkedIn,
+      placeholder email, and a working Download Resume link).
 - [ ] Resume page: Experience / Skills / Projects / Education sections with
       placeholder content clearly marked.
 - [ ] Real content: Gene fills in name, title, work history, education,

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Header } from '../components/layout/Header'
+import { SectionEyebrow } from '../components/ui/SectionEyebrow'
 
 const Main = styled.main`
   max-width: ${({ theme }) => theme.maxWidth.resume};
@@ -10,14 +11,6 @@ const Main = styled.main`
   @media (max-width: 640px) {
     padding: ${({ theme }) => theme.space[9]} ${({ theme }) => theme.space[5]};
   }
-`
-
-const Eyebrow = styled.div`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: 13px;
-  color: ${({ theme }) => theme.color.accent2};
-  letter-spacing: 0.06em;
-  margin-bottom: ${({ theme }) => theme.space[5]};
 `
 
 const Title = styled.h1`
@@ -45,7 +38,7 @@ export function Resume() {
     <>
       <Header />
       <Main>
-        <Eyebrow>// resume</Eyebrow>
+        <SectionEyebrow>// resume</SectionEyebrow>
         <Title>Resume — coming soon</Title>
         <Note>
           Experience, skills, projects, and education sections are designed (see the GeneLab

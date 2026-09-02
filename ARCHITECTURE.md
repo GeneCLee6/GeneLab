@@ -28,13 +28,15 @@ src/
     theme.ts         design tokens (DESIGN.md → typed DefaultTheme)
     GlobalStyle.ts    global CSS reset + font-face/font-link wiring
   components/
-    layout/           Header, Footer — shared across routes
-    ui/               small reusable primitives (Button, Tag, SectionEyebrow)
+    layout/           Header — shared across routes
+    ui/               small reusable primitives (Button/IconButton, Tag, SectionEyebrow)
   pages/
     Home.tsx          hero + projects + contact (single scrolling page)
-    Resume.tsx         experience/skills/projects/education
+    Resume.tsx         experience/skills/projects/education (stub today)
   data/
     projects.ts       the three project cards (title, tag, description, tech, repo url)
+    social.ts         GitHub/LinkedIn/Resume links — single source for both the
+                       header link group and the Contact section footer
   App.tsx             router setup
   main.tsx            entry point
 public/
@@ -48,6 +50,12 @@ restructuring.
 
 `data/projects.ts` exists so the three project cards are edited in one place
 (and easy to reorder/add to) rather than hardcoded inline in `Home.tsx`.
+
+`data/social.ts` exists so the GitHub/LinkedIn/Resume links — which repeat in
+both the header and the Contact section — are edited in exactly one place.
+The GitHub username isn't final (Gene is considering renaming it from
+`GeneCLee6`), so this is also what keeps that a one-line change instead of a
+multi-file find-and-replace.
 
 ## Content vs. code
 

@@ -19,19 +19,27 @@ Vite + styled-components). Single owner, static content, no backend.
 
 ## Current status
 
-As of this writing, the project is at **"design + scaffold complete, page
-content pending"** — the same maturity level CoverCompass is at:
+As of this writing, the Home page is feature-complete for v1 and the Resume
+page is still a stub:
 
 - Done: `PRD.md` / `DESIGN.md` / `ARCHITECTURE.md` / `CLAUDE.md`, a design
   canvas exploring the visual direction (Home + Resume artboards), project
   scaffold (Vite + React + TypeScript + styled-components), `src/theme/`
-  (tokens + GlobalStyle matching `DESIGN.md`), and a working Header/Hero on
-  the Home page.
-- **Not yet implemented**: the Projects section (cards for CoverCompass /
-  MelCoverCompare / WearCast), the Contact section, the full Resume page
-  (`/resume` route with Experience/Skills/Projects/Education), and any
-  deployment setup. `npm run dev` runs and shows the Header + Hero reflecting
-  the chosen design; the rest is the next work session's scope.
+  (tokens + GlobalStyle matching `DESIGN.md`), and a complete Home page —
+  Header, Hero, Projects (all three project cards), and Contact section.
+  The header carries GitHub + LinkedIn icon links and a Resume download
+  button (`src/data/social.ts`), visible on every page since `Header` is
+  shared layout.
+- This revision pass (per Gene's direct feedback on the first design round)
+  also: capitalized the logo wordmark (`GeneLab`, was lowercase `genelab`),
+  removed the blinking cursor next to it, and added the GitHub/LinkedIn/
+  Resume links described above in both the header and the Contact section
+  footer.
+- **Not yet implemented**: the full Resume page (`/resume` route with real
+  Experience/Skills/Projects/Education content — it currently renders a
+  placeholder stub), and any deployment setup. `npm run dev` runs and shows
+  the complete Home page; the Resume page build-out is the next work
+  session's scope.
 
 ## Hard rule: no invented personal facts
 
@@ -79,3 +87,8 @@ testing.)
   language per-section.
 - Project card content lives in `src/data/projects.ts` (see
   `ARCHITECTURE.md`) — edit there, not inline in JSX.
+- GitHub/LinkedIn/Resume links live in `src/data/social.ts` — edit there,
+  not inline in `Header.tsx` or `Home.tsx`. This matters because the GitHub
+  username (`GeneCLee6`) may change; centralizing it keeps that a one-line
+  edit. A link with `url: null` renders as an unfilled placeholder per
+  `DESIGN.md` §6, never as a broken/dead link.

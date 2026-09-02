@@ -87,14 +87,28 @@ font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace; /* mono
 ### Header / nav
 - Sticky, `rgba(11,13,18,0.86)` background + `backdrop-filter: blur(8px)`,
   1px `color.border` bottom edge.
-- Logo wordmark: `gene` in `text.1`, `lab` in `accent.2`, both Space Grotesk
-  700, plus a small blinking block cursor (`color.accent`, `steps(1)` blink
-  animation) — the one intentional "technical" flourish in the nav.
+- Logo wordmark: **`Gene` in `text.1`, `Lab` in `accent.2`, both Space
+  Grotesk 700, capitalized** ("GeneLab" as a wordmark, not the lowercase
+  `genelab` package-name styling) — capitalization reads as a credible
+  brand name rather than a raw npm-package label. No cursor or blink
+  animation next to it — an earlier draft had a blinking block cursor here;
+  it read as a gimmick rather than a "technical" flourish, so it was cut.
+  If a static technical touch is wanted later, a small bracket glyph is the
+  safer direction — not motion.
 - Nav links: IBM Plex Mono, uppercase, letter-spacing 0.04em, `text.2` →
-  `text.1` on hover/active, no underline.
-- Trailing GitHub link rendered as a bordered pill with an inline
-  bracket-glyph icon (`</>`-style paths, not the GitHub octocat mark) plus
-  `@GeneCLee6` in mono.
+  `text.1` on hover/active, no underline. Hidden below ~640px in favor of
+  the trailing link group (below), which stays visible at every width.
+- **Trailing link group** (always visible, right-aligned): a GitHub icon
+  link and a LinkedIn icon link, each a 34×34 bordered square with an
+  inline stroke-style glyph (`</>`-bracket paths for GitHub, not the octocat
+  mark; a simple "in" glyph for LinkedIn) and no text label at this size —
+  plus a compact "Resume" secondary button (§ Buttons, `$compact`) linking
+  to `/resume.pdf`. This trio exists so a first-time visitor can find both
+  profile links and the résumé download from any page without hunting,
+  per Gene's explicit ask. LinkedIn renders in its unset/placeholder state
+  (dashed border, `text.3`, non-interactive) until a real URL is supplied —
+  see § Placeholder convention. All three links are sourced from
+  `src/data/social.ts`, not hardcoded per-component.
 
 ### Buttons
 - **Primary**: `accent` background, `ink.950` text, weight 600, `border-radius: 6px`,
@@ -103,6 +117,9 @@ font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace; /* mono
   Same radius/padding as primary.
 - No all-caps button text (buttons use `body`-weight sentence case, only nav
   and tags use mono/uppercase).
+- **Compact variant**: `8px 14px` padding, 12.5px font — used for the
+  header's Resume button so it sits comfortably next to the icon link
+  group without dominating the nav bar.
 
 ### Cards (project cards)
 - `ink.900` background, `1px solid color.border`, `border-radius: 10px`,
@@ -121,9 +138,14 @@ font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace; /* mono
 
 ### Contact block
 - Rendered as a mock terminal panel: `ink.900` surface, mono type,
-  `$ contact --info` prompt line in `text.3`, then `key   value` rows.
-  Placeholder values render in `text.3` (unset) vs. `accent.2`/link color
-  (set) so it's visually obvious what still needs filling in.
+  `$ contact --info` prompt line in `text.3`, then `key   value` rows —
+  `email`, `github`, `linkedin`, `resume`. Placeholder values render in
+  `text.3` (unset) vs. `accent.2`/link color (set) so it's visually obvious
+  what still needs filling in. `github` and `resume` are set (real handle,
+  wired download link); `email` and `linkedin` stay unset until Gene
+  supplies them. This is the second of the two places the GitHub/LinkedIn/
+  Resume links repeat (the first being the header) — both sourced from the
+  same `src/data/social.ts`.
 
 ### Background texture
 - Subtle only: a faint 48px×48px grid (`border.soft`, 1px lines) plus one
