@@ -8,6 +8,7 @@ Start here:
 
 - [`PRD.md`](./PRD.md) — what sections exist, content rules, "done" checklist
 - [`CLAUDE.md`](./CLAUDE.md) — project status and rules for working in this repo
+- [`RULES.md`](./RULES.md) — engineering conventions (KISS/DRY/SOLID as applied here)
 - [`DESIGN.md`](./DESIGN.md) — visual design system
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md) — tech stack, folder structure
 

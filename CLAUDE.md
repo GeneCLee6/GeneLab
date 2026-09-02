@@ -10,9 +10,12 @@ Vite + styled-components). Single owner, static content, no backend.
 **Read in this order before making changes:**
 
 1. [`PRD.md`](./PRD.md) — what sections exist, content rules, "done" checklist.
-2. [`DESIGN.md`](./DESIGN.md) — visual design system (colors, type, spacing,
+2. [`RULES.md`](./RULES.md) — engineering conventions (KISS/DRY, and which
+   parts of SOLID actually apply to a static site this size). Read before
+   writing or restructuring any code.
+3. [`DESIGN.md`](./DESIGN.md) — visual design system (colors, type, spacing,
    component patterns). Any UI change should match this or update it.
-3. [`ARCHITECTURE.md`](./ARCHITECTURE.md) — tech stack, folder structure.
+4. [`ARCHITECTURE.md`](./ARCHITECTURE.md) — tech stack, folder structure.
 
 ## Current status
 
