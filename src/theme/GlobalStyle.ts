@@ -17,16 +17,18 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.color.text[1]};
     font-family: ${({ theme }) => theme.font.body};
     background-image:
-      radial-gradient(circle at 15% -10%, rgba(124, 111, 255, 0.10), transparent 42%),
+      radial-gradient(circle at 12% -10%, rgba(139, 110, 255, 0.16), transparent 42%),
+      radial-gradient(circle at 95% 8%, rgba(79, 140, 255, 0.10), transparent 40%),
       linear-gradient(${({ theme }) => theme.color.borderSoft} 1px, transparent 1px),
       linear-gradient(90deg, ${({ theme }) => theme.color.borderSoft} 1px, transparent 1px);
-    background-size: auto, 48px 48px, 48px 48px;
+    background-size: auto, auto, 48px 48px, 48px 48px;
     min-height: 100vh;
   }
 
   a {
     color: ${({ theme }) => theme.color.accent2};
     text-decoration: none;
+    transition: color 0.25s ease;
   }
 
   a:hover {
@@ -39,8 +41,11 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.color.ink[950]};
   }
 
-  @keyframes blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 `

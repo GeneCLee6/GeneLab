@@ -35,6 +35,21 @@ page is still a stub:
   removed the blinking cursor next to it, and added the GitHub/LinkedIn/
   Resume links described above in both the header and the Contact section
   footer.
+- **Round 3** (per Gene's direct feedback: too plain/monotonous, hover
+  states not good enough, wants it "impressive" with more color) changed
+  the visual direction — see `DESIGN.md` §1/§2 for the full rationale.
+  Short version: the palette expanded from one purple accent + sparing
+  amber to a cohesive purple/blue/peach gradient system on a deepened
+  purple-navy base; the hero got an oversized gradient-accented headline,
+  a pill-chip row, and a decorative layered glow/terminal-card visual;
+  Home's three sections (Hero/Projects/Contact) now each have their own
+  full-bleed background band instead of sharing one flat backdrop; project
+  cards each carry a rotating purple/blue/peach `hue` (top accent bar +
+  category tag) instead of one-size-fits-all amber tags; and every
+  interactive element (nav, buttons, icon links, cards, tags, contact
+  links) got a considered hover treatment (lift + color/gradient shift +
+  glow shadow) replacing the earlier opacity/border-only hovers. The design
+  canvas Artifact was updated in place with the same changes.
 - **Not yet implemented**: the full Resume page (`/resume` route with real
   Experience/Skills/Projects/Education content — it currently renders a
   placeholder stub), and any deployment setup. `npm run dev` runs and shows

@@ -5,20 +5,22 @@
 export const theme = {
   color: {
     ink: {
-      950: '#0B0D12',
-      900: '#12151C',
-      800: '#171B24',
+      950: '#150F2E',
+      900: '#1E1740',
+      800: '#281F52',
     },
-    border: '#262B36',
-    borderSoft: '#1B1F28',
+    border: '#3A2F66',
+    borderSoft: '#241C48',
     text: {
-      1: '#EDEFF3',
-      2: '#9AA3B2',
-      3: '#5B6472',
+      1: '#F5F2FC',
+      2: '#B6ADD1',
+      3: '#766B9B',
     },
-    accent: '#7C6FFF',
-    accent2: '#9C90FF',
-    accentAmber: '#FFB454',
+    accent: '#8B6EFF',
+    accent2: '#B79CFF',
+    blue: '#4F8CFF',
+    peach: '#FF9D72',
+    gradient: 'linear-gradient(135deg, #8B6EFF 0%, #4F8CFF 55%, #FF9D72 100%)',
   },
   font: {
     display: "'Space Grotesk', system-ui, sans-serif",

@@ -4,6 +4,12 @@
 // matters here. `repoUrl` assumes each project lives under Gene's GitHub
 // account at its project name; update if a repo is renamed or made private.
 
+// `hue` is design metadata only (which accent color a card's top bar,
+// category tag, and hover glow use) — not a content field, so it doesn't
+// fall under CLAUDE.md's "no invented facts" rule. Rotates purple/blue/peach
+// across the three cards per DESIGN.md §5 "Cards".
+export type ProjectHue = 'purple' | 'blue' | 'peach'
+
 export interface Project {
   slug: string
   name: string
@@ -11,6 +17,7 @@ export interface Project {
   description: string
   tech: string[]
   repoUrl: string
+  hue: ProjectHue
 }
 
 export const projects: Project[] = [
@@ -22,6 +29,7 @@ export const projects: Project[] = [
       'Independent MLS / Lifetime Health Cover planning calculator for Australian taxpayers — quantifies the lifetime financial impact of buying vs. not buying private hospital cover.',
     tech: ['React', 'TypeScript', 'Vite', 'styled-components'],
     repoUrl: 'https://github.com/GeneCLee6/CoverCompass',
+    hue: 'purple',
   },
   {
     slug: 'melcovercompare',
@@ -31,6 +39,7 @@ export const projects: Project[] = [
       'A Melbourne car insurance comparison tool: compare quotes across insurers, see plain-English pricing explanations, and get one best-value recommendation.',
     tech: ['React', 'TypeScript', 'Radix UI', 'styled-components'],
     repoUrl: 'https://github.com/GeneCLee6/MelCoverCompare',
+    hue: 'blue',
   },
   {
     slug: 'wearcast',
@@ -40,5 +49,6 @@ export const projects: Project[] = [
       'A weather-based outfit recommendation PWA: daily forecasts for favourite cities, paired with automatic outfit suggestions.',
     tech: ['React', 'TypeScript', 'Vite PWA', 'Zustand'],
     repoUrl: 'https://github.com/GeneCLee6/WearCast',
+    hue: 'peach',
   },
 ]

@@ -48,7 +48,10 @@ silently in code.
 
 ## "Done" for v1
 
-- [x] Visual design direction decided and documented (`DESIGN.md`).
+- [x] Visual design direction decided and documented (`DESIGN.md`). Revised
+      a third time per Gene's direct feedback (wanted a bolder, more
+      colorful, more "impressive" look with better hover states) — see
+      `DESIGN.md` §1/§2 and `CLAUDE.md` "Current status" for what changed.
 - [x] Home page: Header/Hero implemented per the design.
 - [x] Home page: Projects section with all three project cards.
 - [x] Home page: Contact section (with GitHub, placeholder LinkedIn,

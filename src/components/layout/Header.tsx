@@ -11,7 +11,7 @@ const Bar = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: ${({ theme }) => theme.space[5]} ${({ theme }) => theme.space[8]};
-  background: rgba(11, 13, 18, 0.86);
+  background: rgba(21, 15, 46, 0.86);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid ${({ theme }) => theme.color.border};
   gap: ${({ theme }) => theme.space[4]};
@@ -24,7 +24,9 @@ const Bar = styled.header`
 // Wordmark: capitalized "Gene" + "Lab" — reads as a brand name rather than a
 // raw lowercase package name (DESIGN.md §5 "Header / nav"). The blinking
 // cursor that used to sit here was cut: a literal blink animation next to a
-// wordmark read as a gimmick rather than a "technical" flourish.
+// wordmark read as a gimmick rather than a "technical" flourish. "Lab" now
+// renders in the purple→blue→peach gradient (DESIGN.md §2) instead of a
+// flat accent color, with a brightness lift on hover.
 const Wordmark = styled(Link)`
   display: flex;
   align-items: center;
@@ -34,15 +36,20 @@ const Wordmark = styled(Link)`
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.color.text[1]};
   flex-shrink: 0;
+  transition: filter 0.25s ease;
 
   &:hover {
     text-decoration: none;
     color: ${({ theme }) => theme.color.text[1]};
+    filter: brightness(1.15);
   }
 `
 
 const Lab = styled.span`
-  color: ${({ theme }) => theme.color.accent2};
+  background: ${({ theme }) => theme.color.gradient};
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 `
 
 const Nav = styled.nav`
@@ -65,16 +72,40 @@ const NavLinks = styled.div`
   }
 `
 
+// Underline is an animated gradient sweep (left→right on hover) rather than
+// a static border or a color-only change — per Gene's feedback that hover
+// states need a real considered treatment, not an opacity tweak.
 const NavItem = styled(NavLink)`
+  position: relative;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.color.text[2]};
+  padding-bottom: 4px;
+  transition: color 0.25s ease, transform 0.25s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.gradient};
+    transition: right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
 
   &:hover {
     color: ${({ theme }) => theme.color.text[1]};
     text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &:hover::after,
+  &.active::after {
+    right: 0;
   }
 
   &.active {
