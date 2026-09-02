@@ -1,0 +1,27 @@
+{
+  "name": "genelab",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.9.0",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@types/styled-components": "^5.1.36",
+    "@vitejs/plugin-react": "^5.2.0",
+    "babel-plugin-styled-components": "^2.1.4",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
+  }
+}
