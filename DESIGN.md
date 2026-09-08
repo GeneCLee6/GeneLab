@@ -8,7 +8,7 @@ this document misleading rather than historical.
 
 ## 1. Direction
 
-**Dark technical.** Near-black neutral base, one cool accent, precise
+**Dark technical.** Cool dark neutral base, one cool accent, precise
 sans-serif, monospace reserved for metadata. The reference points are the
 tools this audience uses daily — Linear, Vercel, the Anthropic console — not
 portfolio templates.
@@ -51,19 +51,26 @@ All tokens live in `src/theme/theme.ts`. Never hardcode a hex in a component.
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `bg` | `#0B0D10` | Page base. Slightly cool near-black; pure black makes elevation unreadable. |
-| `band` | `#0E1114` | Section band tint, between `bg` and `surface`. |
-| `surface` | `#12151A` | Cards and panels. |
-| `surfaceHover` | `#171B22` | Hover state for elevated surfaces. |
-| `border` | `#232830` | Hairline. Does the structural work a light theme gives to shadows. |
-| `borderStrong` | `#333B47` | Hover/emphasis borders. |
-| `text.1` | `#E6E9EF` | Primary. Cool off-white — #FFF vibrates at large sizes on near-black. |
-| `text.2` | `#9AA3B0` | Body copy. ~8:1 on `bg`. |
-| `text.3` | `#757E8C` | Metadata and labels. ~5:1 on `bg`, still AA for normal text. |
+| `bg` | `#101318` | Page base. Cool dark grey. |
+| `band` | `#14181E` | Section band tint (used by the footer). |
+| `surface` | `#191D24` | Cards and panels. |
+| `surfaceHover` | `#1F242C` | Hover state for elevated surfaces. |
+| `border` | `#2B313A` | Hairline. Does the structural work a light theme gives to shadows. |
+| `borderStrong` | `#3D4552` | Hover/emphasis borders. |
+| `text.1` | `#F2F4F7` | Primary. Cool off-white — #FFF vibrates at large sizes. |
+| `text.2` | `#BAC1CB` | Body copy. ~10:1 on `bg`. |
+| `text.3` | `#929AA6` | Metadata and labels. ~6.4:1 on `bg`. |
 | `accent` | `#6C8EFF` | The only accent. ~6.5:1 on `bg`, so it is safe as small text. |
 | `accentHover` | `#8FA9FF` | Hover for accent-colored text and fills. |
 | `accentSoft` | `rgba(108,142,255,0.12)` | Soft fills. Alpha, so it composites over both `bg` and `surface`. |
 | `accentBorder` | `rgba(108,142,255,0.32)` | Accent-tinted borders. |
+
+**These values were raised once already.** The first pass sat at `#0B0D10`
+with body text at `#9AA3B0`, which Gene read as too dark overall and too dim
+to read comfortably. Lifting the base is what made the brighter text tones
+possible — raising text against a near-black base alone would have produced
+glare rather than legibility. If this ever needs adjusting again, move the
+base and the text together.
 
 **Accent budget.** Roughly one accent element per viewport. Currently: the
 emphasized phrase in the hero headline, the `Lab` in the wordmark, links,
@@ -89,9 +96,16 @@ white-on-accent falls under 3:1.
 | Card title | 20px | 600 | -0.02em |
 | Body / lede | 15–17px | 400 | — |
 | Small body | 13.5–14.5px | 400 | — |
-| Mono eyebrow | 11.5px upper | 400 | 0.14em |
+| Mono eyebrow | 12px upper | 400 | 0.14em |
+| Mono metadata (tags, dates, stack) | 12.5–13.5px | 400 | — |
 
 Measure is capped: headline `17ch`, lede `60ch`, prose `62ch`.
+
+**Mono metadata sits at 12.5px and up, not 11px.** The first pass ran mono
+labels and the stack list a step smaller; at that size on a dark background
+they read as unfinished rather than quiet. Mono has a smaller apparent
+x-height than Inter at the same nominal size, so it needs roughly one step
+more than the equivalent sans text, not one step less.
 
 ## 4. Layout
 
@@ -117,6 +131,17 @@ Measure is capped: headline `17ch`, lede `60ch`, prose `62ch`.
   dropped its old `// comment` prefix: a code-comment device on something that
   is not code is decoration.
 - **`Reveal`** — scroll-triggered fade + translateY. See §7.
+- **`LogoMark`** — the site's mark: two nodes converging into a third. A graph,
+  which reads generically as "systems" and specifically as the agent-graph
+  work the site leads with. Drawn to stay legible at 16px, so it is three
+  filled circles and two straight edges and nothing else — no thin strokes, no
+  interior detail, no lettering. `public/favicon.svg` is the same artwork with
+  the colors baked in; **change the two together or the tab icon drifts from
+  the header.**
+- **`Footer`** — a closing CTA (positioning line + "Get in touch" / "Download
+  resume") over a three-column footer and a bottom bar. The CTA exists because
+  the page previously ended on a bare copyright line: a visitor who read to the
+  bottom and wanted to make contact had to scroll back up to find an address.
 
 ## 6. Content honesty
 

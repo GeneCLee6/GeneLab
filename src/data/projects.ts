@@ -43,11 +43,12 @@ export const projects: Project[] = [
     name: 'CareerMate',
     category: 'REST API · resume platform',
     description:
-      'A resume-management backend: accounts, authentication, and secure resume upload and retrieval.',
+      'A resume-management platform: accounts, authentication, and secure resume upload and retrieval. Backend complete; the product UI and the AI review features are still being built.',
     detail:
       'The interesting part is the upload path — files never pass through the API. The client gets a short-lived S3 presigned URL, uploads directly, and the server validates the object server-side (type and size via HeadObject) before it is promoted out of the temp prefix. Layered on JWT auth with role guards, Zod request validation, rate limiting, and Winston structured logging. Deployed on AWS Elastic Beanstalk.',
     tech: ['Node.js', 'Express', 'MongoDB', 'AWS S3', 'Elastic Beanstalk', 'JWT', 'Zod'],
-    repoUrl: 'https://github.com/GeneCLee6/careermate_backend',
+    repoUrl: 'https://github.com/GeneCLee6/CareerMateBackend',
+    note: 'In progress',
     featured: true,
   },
   {

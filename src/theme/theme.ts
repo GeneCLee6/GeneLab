@@ -14,31 +14,33 @@
 // no hue cast and no glow layers.
 export const theme = {
   color: {
-    // Page base. Very slightly cool near-black — pure #000 makes borders and
-    // elevation impossible to read, and looks harsh on large surfaces.
-    bg: '#0B0D10',
+    // Page base. Cool dark grey, not near-black — the first pass sat at
+    // #0B0D10, which read as harsh and made the whole page feel heavy.
+    // Lifting the base a few steps is what lets the text tones below sit
+    // comfortably bright without glaring.
+    bg: '#101318',
     // Elevated surfaces (cards, panels). One clear step up from `bg` so a
     // card reads as raised without needing a heavy shadow.
-    surface: '#12151A',
+    surface: '#191D24',
     // Hover/active state for elevated surfaces.
-    surfaceHover: '#171B22',
-    // Full-bleed band tint — used to separate a section from `bg` without a
-    // hard border. Between `bg` and `surface`.
-    band: '#0E1114',
+    surfaceHover: '#1F242C',
+    // Full-bleed band tint — separates a section from `bg` without a hard
+    // border. Between `bg` and `surface`.
+    band: '#14181E',
 
     // Hairline borders do the structural work in this theme (in place of the
     // shadows a light theme would use).
-    border: '#232830',
-    borderStrong: '#333B47',
+    border: '#2B313A',
+    borderStrong: '#3D4552',
 
     text: {
-      // Primary. Slightly cool off-white; #FFF at large sizes vibrates
-      // against a near-black base.
-      1: '#E6E9EF',
-      // Secondary body copy. ~8:1 on `bg`.
-      2: '#9AA3B0',
-      // Muted metadata/labels. ~5:1 on `bg` — still AA for normal text.
-      3: '#757E8C',
+      // Primary. Cool off-white; pure #FFF vibrates at large sizes.
+      1: '#F2F4F7',
+      // Secondary body copy. ~10:1 on `bg` — raised from the first pass,
+      // where body text at ~8:1 still read as dim across long paragraphs.
+      2: '#BAC1CB',
+      // Muted metadata/labels. ~6.4:1 on `bg`, comfortably above AA.
+      3: '#929AA6',
     },
 
     // The SINGLE accent. Carries every interactive role: links, buttons,

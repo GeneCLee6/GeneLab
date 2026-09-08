@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { IconButton, Button } from '../ui/Button'
+import { LogoMark } from '../ui/LogoMark'
 import { social } from '../../data/social'
 
 const Bar = styled.header`
@@ -12,7 +13,9 @@ const Bar = styled.header`
   justify-content: space-between;
   gap: ${({ theme }) => theme.space[5]};
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[7]};
-  background: rgba(11, 13, 16, 0.78);
+  /* Translucent form of theme.color.bg (#101318) — an alpha value is needed
+     for the backdrop blur, which a solid token can't express. */
+  background: rgba(16, 19, 24, 0.78);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid ${({ theme }) => theme.color.border};
 
@@ -22,9 +25,12 @@ const Bar = styled.header`
 `
 
 const Wordmark = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.space[3]};
   font-family: ${({ theme }) => theme.font.sans};
   font-weight: 600;
-  font-size: 15px;
+  font-size: 15.5px;
   letter-spacing: -0.01em;
   color: ${({ theme }) => theme.color.text[1]};
   flex-shrink: 0;
@@ -32,10 +38,10 @@ const Wordmark = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.color.text[1]};
   }
+`
 
-  span {
-    color: ${({ theme }) => theme.color.accent};
-  }
+const Lab = styled.span`
+  color: ${({ theme }) => theme.color.accent};
 `
 
 const Nav = styled.nav`
@@ -114,7 +120,10 @@ export function Header() {
   return (
     <Bar>
       <Wordmark to="/">
-        Gene<span>Lab</span>
+        <LogoMark size={26} />
+        <span>
+          Gene<Lab>Lab</Lab>
+        </span>
       </Wordmark>
       <Nav>
         <NavLinks>

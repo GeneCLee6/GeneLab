@@ -69,7 +69,7 @@ const Section = styled.section`
 
 const SectionTitle = styled.h2`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: ${({ theme }) => theme.color.text[3]};
@@ -116,7 +116,7 @@ const RoleTitle = styled.h3`
 const Period = styled.span`
   flex-shrink: 0;
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12.5px;
+  font-size: 13px;
   color: ${({ theme }) => theme.color.text[3]};
 `
 
@@ -157,7 +157,7 @@ const Bullets = styled.ul`
 
 const StackLine = styled.p`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.7;
   color: ${({ theme }) => theme.color.text[3]};
   margin: ${({ theme }) => theme.space[4]} 0 0;

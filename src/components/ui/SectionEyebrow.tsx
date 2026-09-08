@@ -8,7 +8,7 @@ import styled from 'styled-components'
 // character from typography and density instead.
 export const SectionEyebrow = styled.div`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: ${({ theme }) => theme.color.text[3]};

@@ -11,7 +11,7 @@ import styled, { css } from 'styled-components'
 export const Tag = styled.span<{ $variant?: 'accent' | 'muted' }>`
   display: inline-block;
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12.5px;
   line-height: 1.5;
   padding: 3px 8px;
   border: 1px solid ${({ theme }) => theme.color.border};
@@ -27,7 +27,7 @@ export const Tag = styled.span<{ $variant?: 'accent' | 'muted' }>`
       background: ${theme.color.accentSoft};
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-size: 10.5px;
+      font-size: 11px;
     `}
 
   ${({ $variant, theme }) =>

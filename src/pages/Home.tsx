@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Header } from '../components/layout/Header'
+import { Footer } from '../components/layout/Footer'
 import { SectionEyebrow } from '../components/ui/SectionEyebrow'
 import { Tag } from '../components/ui/Tag'
 import { Button } from '../components/ui/Button'
@@ -111,8 +112,8 @@ const StackStrip = styled.div`
   padding-top: ${({ theme }) => theme.space[5]};
   border-top: 1px solid ${({ theme }) => theme.color.border};
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12.5px;
-  color: ${({ theme }) => theme.color.text[3]};
+  font-size: 13.5px;
+  color: ${({ theme }) => theme.color.text[2]};
 `
 
 function ArrowIcon() {
@@ -183,7 +184,7 @@ const CardLead = styled.p`
 // The engineering detail — deliberately the longest text on the card. This
 // is the part a technical reader is actually evaluating.
 const CardDetail = styled.p`
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.68;
   color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
@@ -246,7 +247,7 @@ const MiniName = styled.h3`
 `
 
 const MiniText = styled.p`
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.6;
   color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
@@ -255,7 +256,7 @@ const MiniText = styled.p`
 
 const MiniMeta = styled.div`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: ${({ theme }) => theme.color.text[3]};
 `
 
@@ -284,7 +285,7 @@ const StackGroup = styled.div`
 
 const StackLabel = styled.h3`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: ${({ theme }) => theme.color.accent};
@@ -302,7 +303,7 @@ const StackItems = styled.ul`
   gap: ${({ theme }) => theme.space[2]};
 
   li {
-    font-size: 14px;
+    font-size: 15px;
     color: ${({ theme }) => theme.color.text[2]};
   }
 `
@@ -322,7 +323,7 @@ const LearningRow = styled.div`
 
 const LearningLabel = styled.span`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 11.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: ${({ theme }) => theme.color.text[3]};
@@ -372,7 +373,7 @@ const ContactRow = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.space[4]};
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 13px;
+  font-size: 13.5px;
   padding: ${({ theme }) => theme.space[3]} 0;
   border-bottom: 1px solid ${({ theme }) => theme.color.border};
 
@@ -395,14 +396,6 @@ const ContactKey = styled.span`
 const ContactValue = styled.span`
   color: ${({ theme }) => theme.color.text[2]};
   overflow-wrap: anywhere;
-`
-
-const Footer = styled.footer`
-  padding: ${({ theme }) => theme.space[6]} 0;
-  border-top: 1px solid ${({ theme }) => theme.color.border};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12px;
-  color: ${({ theme }) => theme.color.text[3]};
 `
 
 export function Home() {
@@ -471,14 +464,13 @@ export function Home() {
                     <CardHead>
                       <Tag $variant="accent">{project.category}</Tag>
                       <CardName>{project.name}</CardName>
-                      {project.repoUrl ? (
+                      {project.repoUrl && (
                         <RepoLink href={project.repoUrl} target="_blank" rel="noreferrer">
                           View source
                           <ArrowIcon />
                         </RepoLink>
-                      ) : (
-                        <Tag $variant="muted">{project.note}</Tag>
                       )}
+                      {project.note && <Tag $variant="muted">{project.note}</Tag>}
                     </CardHead>
                     <CardBody>
                       <CardLead>{project.description}</CardLead>
@@ -618,10 +610,8 @@ export function Home() {
           </Container>
         </Section>
 
-        <Container>
-          <Footer>© {new Date().getFullYear()} Gene Lee</Footer>
-        </Container>
       </Main>
+      <Footer />
     </>
   )
 }
