@@ -242,8 +242,8 @@ export function Resume() {
             <Role>AI Engineer · Full-Stack Developer</Role>
           </div>
           <Button href={social.resume.url} download $variant="secondary" $compact>
-            <DownloadIcon />
             Download PDF
+            <DownloadIcon />
           </Button>
         </TopRow>
 

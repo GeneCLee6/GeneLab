@@ -214,10 +214,16 @@ const DemoLink = styled.a`
 
 const MiniGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: ${({ theme }) => theme.space[4]};
+  align-items: stretch;
 
-  @media (max-width: 860px) {
+  /* The direct children are Reveal wrappers, not the cards themselves. */
+  > * {
+    height: 100%;
+  }
+
+  @media (max-width: 620px) {
     grid-template-columns: 1fr;
   }
 `
@@ -225,6 +231,7 @@ const MiniGrid = styled.div`
 const MiniCard = styled.article`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: ${({ theme }) => theme.space[3]};
   padding: ${({ theme }) => theme.space[5]};
   border: 1px solid ${({ theme }) => theme.color.border};
@@ -254,8 +261,10 @@ const MiniText = styled.p`
 `
 
 const MiniMeta = styled.div`
+  margin-top: auto;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 12.5px;
+  line-height: 1.6;
   color: ${({ theme }) => theme.color.text[3]};
 `
 

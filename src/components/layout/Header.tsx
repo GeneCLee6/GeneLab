@@ -143,8 +143,8 @@ export function Header() {
           {/* Carries the download glyph so it reads as "this hands you a
               file", not as another nav destination. */}
           <Button href={social.resume.url} $variant="secondary" $compact download>
-            <DownloadIcon />
             Resume
+            <DownloadIcon />
           </Button>
         </LinkGroup>
       </Nav>

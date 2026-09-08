@@ -120,7 +120,15 @@ more than the equivalent sans text, not one step less.
   rhythm comes from content shape, not from color blocks.
 - Featured project cards are a 1fr / 1.45fr split: identity on the left,
   substance on the right. Collapses to one column at 860px.
-- Secondary projects are a 3-up grid, one column at 860px.
+- Secondary projects use `repeat(auto-fit, minmax(260px, 1fr))`, one column
+  under 620px. `auto-fit` rather than a fixed column count so the row stays
+  balanced as projects move between the featured and secondary lists —
+  promoting WearCast left two cards stranded in a three-column track.
+- **Cards in a grid must be equal height regardless of copy length.** The grid
+  children are `Reveal` wrappers, not the cards, so the wrapper needs
+  `height: 100%` *and* the card does; stretching the wrapper alone leaves the
+  card sized to its own content. The tech-stack line uses `margin-top: auto`
+  so it sits on the card floor and lines up across the row.
 - Stack is 4 columns, 2 at 860px, 1 at 520px.
 
 ## 5. Components
@@ -146,6 +154,10 @@ more than the equivalent sans text, not one step less.
   header button, the resume page button, and the footer CTA. A fourth copy in
   the footer link column was removed; past three, the repetition stops reading
   as helpful and starts reading as clutter.
+  **Icon side follows meaning**: a glyph that *labels* the control leads (the
+  mail icon on "Get in touch"); a glyph that describes *what the control does
+  to you* trails (the download arrow, the link arrow). Download icons sit on
+  the right in all three places.
 - **`LogoMark`** — the site's mark: two nodes converging into a third. A graph,
   which reads generically as "systems" and specifically as the agent-graph
   work the site leads with. Drawn to stay legible at 16px, so it is three
