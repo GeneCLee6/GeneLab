@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Header } from '../components/layout/Header'
 import { Tag } from '../components/ui/Tag'
 import { Button } from '../components/ui/Button'
+import { DownloadIcon } from '../components/ui/icons'
 import { summary, experience, otherExperience, education, training } from '../data/resume'
 import { skillGroups } from '../data/skills'
 import { social, location } from '../data/social'
@@ -61,6 +62,8 @@ const Summary = styled.p`
   line-height: 1.7;
   color: ${({ theme }) => theme.color.text[2]};
   margin: ${({ theme }) => theme.space[6]} 0 0;
+  max-width: 68ch;
+  text-wrap: pretty;
 `
 
 const Section = styled.section`
@@ -138,8 +141,10 @@ const Bullets = styled.ul`
     position: relative;
     padding-left: ${({ theme }) => theme.space[5]};
     font-size: 14.5px;
-    line-height: 1.65;
+    line-height: 1.7;
     color: ${({ theme }) => theme.color.text[2]};
+    max-width: 68ch;
+    text-wrap: pretty;
   }
 
   /* A hairline dash rather than a bullet glyph — quieter, and it lines up
@@ -225,14 +230,6 @@ const SkillTags = styled.div`
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.space[2]};
 `
-
-function DownloadIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
 
 export function Resume() {
   return (

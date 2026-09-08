@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { IconButton, Button } from '../ui/Button'
 import { LogoMark } from '../ui/LogoMark'
+import { DownloadIcon } from '../ui/icons'
 import { social } from '../../data/social'
 
 const Bar = styled.header`
@@ -139,7 +140,10 @@ export function Header() {
           <IconButton href={social.linkedin.url} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
             <LinkedInIcon />
           </IconButton>
+          {/* Carries the download glyph so it reads as "this hands you a
+              file", not as another nav destination. */}
           <Button href={social.resume.url} $variant="secondary" $compact download>
+            <DownloadIcon />
             Resume
           </Button>
         </LinkGroup>

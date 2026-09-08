@@ -6,6 +6,7 @@ import { SectionEyebrow } from '../components/ui/SectionEyebrow'
 import { Tag } from '../components/ui/Tag'
 import { Button } from '../components/ui/Button'
 import { Reveal } from '../components/ui/Reveal'
+import { ArrowIcon } from '../components/ui/icons'
 import { featuredProjects, otherProjects } from '../data/projects'
 import { skillGroups, learning } from '../data/skills'
 import { social, location } from '../data/social'
@@ -92,10 +93,11 @@ const Accent = styled.span`
 
 const Lede = styled.p`
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: ${({ theme }) => theme.color.text[2]};
-  max-width: 60ch;
+  max-width: 62ch;
   margin: 0 0 ${({ theme }) => theme.space[7]};
+  text-wrap: pretty;
 `
 
 const Ctas = styled.div`
@@ -115,14 +117,6 @@ const StackStrip = styled.div`
   font-size: 13.5px;
   color: ${({ theme }) => theme.color.text[2]};
 `
-
-function ArrowIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
 
 // ---- Featured project cards ---------------------------------------------
 
@@ -175,19 +169,23 @@ const CardBody = styled.div`
 `
 
 const CardLead = styled.p`
-  font-size: 15px;
-  line-height: 1.6;
-  color: ${({ theme }) => theme.color.text[1]};
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
+  max-width: 62ch;
+  text-wrap: pretty;
 `
 
 // The engineering detail — deliberately the longest text on the card. This
 // is the part a technical reader is actually evaluating.
 const CardDetail = styled.p`
   font-size: 14.5px;
-  line-height: 1.68;
-  color: ${({ theme }) => theme.color.text[2]};
+  line-height: 1.7;
+  color: ${({ theme }) => theme.color.text[3]};
   margin: 0;
+  max-width: 62ch;
+  text-wrap: pretty;
 `
 
 const TagRow = styled.div`
@@ -196,7 +194,7 @@ const TagRow = styled.div`
   gap: ${({ theme }) => theme.space[2]};
 `
 
-const RepoLink = styled.a`
+const DemoLink = styled.a`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.space[2]};
@@ -248,10 +246,11 @@ const MiniName = styled.h3`
 
 const MiniText = styled.p`
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
   flex-grow: 1;
+  text-wrap: pretty;
 `
 
 const MiniMeta = styled.div`
@@ -349,6 +348,7 @@ const Prose = styled.div`
     color: ${({ theme }) => theme.color.text[2]};
     margin: 0 0 ${({ theme }) => theme.space[4]};
     max-width: 62ch;
+    text-wrap: pretty;
   }
 
   p:last-child {
@@ -464,13 +464,14 @@ export function Home() {
                     <CardHead>
                       <Tag $variant="accent">{project.category}</Tag>
                       <CardName>{project.name}</CardName>
-                      {project.repoUrl && (
-                        <RepoLink href={project.repoUrl} target="_blank" rel="noreferrer">
-                          View source
+                      {project.demoUrl ? (
+                        <DemoLink href={project.demoUrl} target="_blank" rel="noreferrer">
+                          View demo
                           <ArrowIcon />
-                        </RepoLink>
+                        </DemoLink>
+                      ) : (
+                        project.status && <Tag $variant="muted">{project.status}</Tag>
                       )}
-                      {project.note && <Tag $variant="muted">{project.note}</Tag>}
                     </CardHead>
                     <CardBody>
                       <CardLead>{project.description}</CardLead>

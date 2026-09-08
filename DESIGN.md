@@ -99,7 +99,12 @@ white-on-accent falls under 3:1.
 | Mono eyebrow | 12px upper | 400 | 0.14em |
 | Mono metadata (tags, dates, stack) | 12.5–13.5px | 400 | — |
 
-Measure is capped: headline `17ch`, lede `60ch`, prose `62ch`.
+**Measure is capped and consistent**: headline `17ch`, lede/prose/card copy
+`62ch`, resume body `68ch`. Every paragraph also sets `text-wrap: pretty`.
+Without a shared measure, paragraphs in adjacent blocks wrapped at different
+widths and the page read as unaligned even though everything shared a left
+edge — if you add a new text block, give it one of these measures rather than
+letting it run to its container.
 
 **Mono metadata sits at 12.5px and up, not 11px.** The first pass ran mono
 labels and the stack list a step smaller; at that size on a dark background
@@ -124,13 +129,23 @@ more than the equivalent sans text, not one step less.
   transparent). `$compact` for the header. 0.18s transitions on background,
   border and color only.
 - **`IconButton`** — 32px square, bordered, for the header's GitHub/LinkedIn.
-- **`Tag`** — mono chip in three variants: default (quiet, bordered) for tech
-  stack, `accent` for category labels, `muted` (dashed) for states like
-  "Private repo" that must read as information rather than a link.
+- **`Tag`** — mono chip in three variants: default (filled, dimmer than body)
+  for tech stack, `accent` for category labels, `muted` (dashed, no fill) for
+  states like "In development" that are information rather than something to
+  click. The default variant deliberately sits at `text.3`, **not** the body
+  tone: when it matched body copy, a row of tech chips read as another line of
+  prose and the section looked flat. Metadata should be quieter than the text
+  it annotates, and the fill is what makes each chip read as a discrete object.
 - **`SectionEyebrow`** — uppercase mono label above each section title. Round 6
   dropped its old `// comment` prefix: a code-comment device on something that
   is not code is decoration.
 - **`Reveal`** — scroll-triggered fade + translateY. See §7.
+- **`icons.tsx`** — shared glyphs. The download arrow is the important one:
+  **every control that hands over a file carries it**, so a resume button is
+  never mistaken for a nav link. It appears in exactly three places — the
+  header button, the resume page button, and the footer CTA. A fourth copy in
+  the footer link column was removed; past three, the repetition stops reading
+  as helpful and starts reading as clutter.
 - **`LogoMark`** — the site's mark: two nodes converging into a third. A graph,
   which reads generically as "systems" and specifically as the agent-graph
   work the site leads with. Drawn to stay legible at 16px, so it is three
@@ -148,9 +163,14 @@ more than the equivalent sans text, not one step less.
 This site is a hiring document, so the design has rules that exist for
 non-visual reasons.
 
-- **No dead links.** Three of the five projects are private repos. They render
-  a `muted` "Private repo" tag, never a link — the previous version linked to
-  repo URLs that 404'd, including two that had never existed under those names.
+- **No repo links at all.** Gene's call: a GitHub URL is not what he wants a
+  recruiter clicking, and three of the five repos are private anyway. Each
+  project instead carries a `demoUrl`, filled in once it is deployed to its own
+  domain; until then the card shows a `status` tag, so the absence reads as
+  "not shipped yet" rather than as a missing link.
+- **Unfinished work says so.** The three featured projects are all still in
+  development and are labelled that way. Overstating readiness is the kind of
+  thing that unravels in an interview.
 - **Shipped work and learning are visually separate.** The stack grid lists
   what Gene has built with; `learning` sits below a rule under its own label.
   Merging them is how someone ends up claiming working knowledge in an

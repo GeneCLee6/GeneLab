@@ -1,11 +1,12 @@
 // Project content. Descriptions are grounded in what each repo actually
 // contains — checked against the code, not written from memory. See
-// CLAUDE.md "no invented facts" for why that matters on this site
-// specifically.
+// CLAUDE.md "no invented facts" for why that matters on this site.
 //
-// `repoUrl: null` means the repo is private. It renders as a "Private repo"
-// label, never as a link — a portfolio whose links 404 is worse than one
-// that shows fewer links, and three of these projects genuinely are private.
+// No repo links. Gene's call: a GitHub URL is not what he wants a recruiter
+// clicking — three of these repos are private anyway, and the plan is to give
+// each finished project a deployed demo on its own domain. `demoUrl` is where
+// that goes; until it is filled in, the card shows its `status` instead, so
+// the absence reads as "not shipped yet" rather than as a missing link.
 
 export interface Project {
   slug: string
@@ -17,9 +18,10 @@ export interface Project {
   /** The engineering point — what was actually hard or worth showing. */
   detail: string
   tech: string[]
-  repoUrl: string | null
-  /** Set when the repo is private, to explain the missing link honestly. */
-  note?: string
+  /** Live demo. Null until the project is deployed to its own domain. */
+  demoUrl: string | null
+  /** Shown when there is no demo yet. Keep it honest and specific. */
+  status?: string
   /** Featured projects render in the larger two-column treatment. */
   featured?: boolean
 }
@@ -34,21 +36,34 @@ export const projects: Project[] = [
     detail:
       'I own the booking and capacity subsystem: atomic slot holds and idempotent confirmation under concurrent calls, an expiry sweep for stale holds, and the guard layer that constrains what the agent is allowed to promise a caller — service area, address validation, booking authority, safety priority. Built with a race-condition test suite, because the failure mode here is double-booking a real tradesperson.',
     tech: ['Python', 'LangGraph', 'FastAPI', 'SQLAlchemy', 'PostgreSQL', 'pytest'],
-    repoUrl: null,
-    note: 'Private repo — public demo planned',
+    demoUrl: null,
+    status: 'In development · demo coming',
     featured: true,
   },
   {
     slug: 'careermate',
     name: 'CareerMate',
-    category: 'REST API · resume platform',
+    category: 'Resume platform',
     description:
-      'A resume-management platform: accounts, authentication, and secure resume upload and retrieval. Backend complete; the product UI and the AI review features are still being built.',
+      'A resume-management platform: accounts, authentication, and secure resume upload and retrieval, with AI-assisted review planned on top.',
     detail:
-      'The interesting part is the upload path — files never pass through the API. The client gets a short-lived S3 presigned URL, uploads directly, and the server validates the object server-side (type and size via HeadObject) before it is promoted out of the temp prefix. Layered on JWT auth with role guards, Zod request validation, rate limiting, and Winston structured logging. Deployed on AWS Elastic Beanstalk.',
+      'The backend is the part that is built. Files never pass through the API — the client gets a short-lived S3 presigned URL, uploads directly, and the server validates the object server-side (type and size via HeadObject) before it is promoted out of the temp prefix. Layered on JWT auth with role guards, Zod request validation, rate limiting, and Winston structured logging, deployed on AWS Elastic Beanstalk. The product UI and the AI review features are still being built.',
     tech: ['Node.js', 'Express', 'MongoDB', 'AWS S3', 'Elastic Beanstalk', 'JWT', 'Zod'],
-    repoUrl: 'https://github.com/GeneCLee6/CareerMateBackend',
-    note: 'In progress',
+    demoUrl: null,
+    status: 'In development · demo coming',
+    featured: true,
+  },
+  {
+    slug: 'wearcast',
+    name: 'WearCast',
+    category: 'PWA · weather',
+    description:
+      'Weather-driven outfit recommendations — daily forecasts for saved cities paired with automatic what-to-wear suggestions, installable as a progressive web app.',
+    detail:
+      'An offline-capable PWA: forecasts and saved cities are cached so the app opens and stays useful without a connection, with client state kept in Zustand and a rule layer mapping forecast conditions onto clothing suggestions.',
+    tech: ['React', 'TypeScript', 'Vite PWA', 'Zustand'],
+    demoUrl: null,
+    status: 'In development · demo coming',
     featured: true,
   },
   {
@@ -59,8 +74,7 @@ export const projects: Project[] = [
       'Lifetime Health Cover and Medicare Levy Surcharge calculator for Australian taxpayers — quantifies the long-run cost of buying versus skipping private hospital cover.',
     detail: '',
     tech: ['React', 'TypeScript', 'Vite', 'styled-components'],
-    repoUrl: null,
-    note: 'Private repo',
+    demoUrl: null,
   },
   {
     slug: 'melcovercompare',
@@ -70,19 +84,7 @@ export const projects: Project[] = [
       'Melbourne car insurance comparison — compares quotes across insurers with plain-English pricing explanations and a single best-value recommendation.',
     detail: '',
     tech: ['React', 'TypeScript', 'Radix UI', 'Playwright'],
-    repoUrl: null,
-    note: 'Private repo',
-  },
-  {
-    slug: 'wearcast',
-    name: 'WearCast',
-    category: 'PWA · weather',
-    description:
-      'Weather-driven outfit recommendations — daily forecasts for saved cities paired with automatic what-to-wear suggestions, installable as a PWA.',
-    detail: '',
-    tech: ['React', 'TypeScript', 'Vite PWA', 'Zustand'],
-    repoUrl: null,
-    note: 'Private repo',
+    demoUrl: null,
   },
 ]
 

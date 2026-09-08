@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Button } from '../ui/Button'
 import { LogoMark } from '../ui/LogoMark'
+import { DownloadIcon, MailIcon } from '../ui/icons'
 import { social, location } from '../../data/social'
 
 // Two parts: a closing call to action, then the footer proper.
@@ -53,10 +54,11 @@ const CtaHeading = styled.h2`
 
 const CtaText = styled.p`
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
-  max-width: 48ch;
+  max-width: 52ch;
+  text-wrap: pretty;
 `
 
 const CtaActions = styled.div`
@@ -105,10 +107,11 @@ const Lab = styled.span`
 
 const BrandText = styled.p`
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: ${({ theme }) => theme.color.text[2]};
   margin: 0;
   max-width: 34ch;
+  text-wrap: pretty;
 `
 
 const ColTitle = styled.h3`
@@ -141,7 +144,6 @@ const ColLinks = styled.ul`
 const BottomBar = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: ${({ theme }) => theme.space[4]};
   padding: ${({ theme }) => theme.space[5]} 0;
   border-top: 1px solid ${({ theme }) => theme.color.border};
@@ -155,15 +157,6 @@ const BottomBar = styled.div`
     gap: ${({ theme }) => theme.space[2]};
   }
 `
-
-function MailIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="M3 7l9 6 9-6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
 
 export function Footer() {
   return (
@@ -183,6 +176,7 @@ export function Footer() {
               Get in touch
             </Button>
             <Button href={social.resume.url} $variant="secondary" download>
+              <DownloadIcon />
               Download resume
             </Button>
           </CtaActions>
@@ -235,18 +229,12 @@ export function Footer() {
               <li>
                 <a href={social.email.url}>Email</a>
               </li>
-              <li>
-                <a href={social.resume.url} download>
-                  Resume (PDF)
-                </a>
-              </li>
             </ColLinks>
           </div>
         </Columns>
 
         <BottomBar>
           <span>© {new Date().getFullYear()} Gene Lee</span>
-          <span>Built with React, TypeScript and styled-components</span>
         </BottomBar>
       </Container>
     </Wrap>
