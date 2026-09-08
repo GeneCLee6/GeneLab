@@ -246,6 +246,22 @@ What responds, and why:
 Everything is a 0.18–0.22s ease on colour, border or a few pixels of
 transform. Nothing lifts, glows or scales dramatically — see §1.
 
+### Mobile navigation
+
+Below **780px** the inline nav links collapse into a menu button; the
+breakpoint lives in one `COMPACT` constant in `Header.tsx` so the two halves
+cannot drift apart and leave a width with no navigation at all — which is
+exactly what happened before the menu existed, when the links were simply
+hidden and nothing replaced them.
+
+The panel animates `max-height` and stays **in flow**, pushing the page rather
+than overlaying it: on a small screen, covering the content the reader was
+looking at is more disorienting than shifting it. It closes on link click,
+route change, Escape, and pointer-down outside the header, and carries
+`aria-expanded` / `aria-controls` / `aria-hidden`. Below 520px the GitHub and
+LinkedIn icon buttons drop out of the bar — they are duplicated inside the
+panel and in the footer.
+
 ### Back to top
 
 `BackToTop` appears once the reader is a full viewport down. Its real
