@@ -3,6 +3,7 @@ import { Header } from '../components/layout/Header'
 import { Tag } from '../components/ui/Tag'
 import { Button } from '../components/ui/Button'
 import { DownloadIcon } from '../components/ui/icons'
+import { BackToTop } from '../components/ui/BackToTop'
 import { summary, experience, otherExperience, education, training } from '../data/resume'
 import { skillGroups } from '../data/skills'
 import { techCategory, categoryLabels } from '../data/tech'
@@ -366,6 +367,7 @@ export function Resume() {
           ))}
         </Section>
       </Main>
+      <BackToTop />
     </>
   )
 }

@@ -70,11 +70,38 @@ export const theme = {
     // Deliberately none of them is blue: `accent` owns blue, and interactive
     // elements have to stay unambiguous. All four clear 8:1 on `bg`, so they
     // are safe at tag sizes.
+    // `bgStrong`/`borderStrong` are the hover pair: the same hue deepened
+    // rather than a shift to neutral, so a tag still reads as its domain
+    // while it responds to the cursor.
     category: {
-      ai: { fg: '#B9A0FF', bg: 'rgba(185, 160, 255, 0.10)', border: 'rgba(185, 160, 255, 0.28)' },
-      backend: { fg: '#5FD3A6', bg: 'rgba(95, 211, 166, 0.10)', border: 'rgba(95, 211, 166, 0.28)' },
-      frontend: { fg: '#E8B36B', bg: 'rgba(232, 179, 107, 0.10)', border: 'rgba(232, 179, 107, 0.28)' },
-      cloud: { fg: '#EE8FA6', bg: 'rgba(238, 143, 166, 0.10)', border: 'rgba(238, 143, 166, 0.28)' },
+      ai: {
+        fg: '#B9A0FF',
+        bg: 'rgba(185, 160, 255, 0.10)',
+        bgStrong: 'rgba(185, 160, 255, 0.20)',
+        border: 'rgba(185, 160, 255, 0.28)',
+        borderStrong: 'rgba(185, 160, 255, 0.55)',
+      },
+      backend: {
+        fg: '#5FD3A6',
+        bg: 'rgba(95, 211, 166, 0.10)',
+        bgStrong: 'rgba(95, 211, 166, 0.20)',
+        border: 'rgba(95, 211, 166, 0.28)',
+        borderStrong: 'rgba(95, 211, 166, 0.55)',
+      },
+      frontend: {
+        fg: '#E8B36B',
+        bg: 'rgba(232, 179, 107, 0.10)',
+        bgStrong: 'rgba(232, 179, 107, 0.20)',
+        border: 'rgba(232, 179, 107, 0.28)',
+        borderStrong: 'rgba(232, 179, 107, 0.55)',
+      },
+      cloud: {
+        fg: '#EE8FA6',
+        bg: 'rgba(238, 143, 166, 0.10)',
+        bgStrong: 'rgba(238, 143, 166, 0.20)',
+        border: 'rgba(238, 143, 166, 0.28)',
+        borderStrong: 'rgba(238, 143, 166, 0.55)',
+      },
     },
   },
 

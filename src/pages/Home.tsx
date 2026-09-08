@@ -6,6 +6,7 @@ import { SectionEyebrow } from '../components/ui/SectionEyebrow'
 import { Tag } from '../components/ui/Tag'
 import { Button } from '../components/ui/Button'
 import { Reveal } from '../components/ui/Reveal'
+import { BackToTop } from '../components/ui/BackToTop'
 import { ArrowIcon } from '../components/ui/icons'
 import { featuredProjects, otherProjects } from '../data/projects'
 import { skillGroups, learning } from '../data/skills'
@@ -159,6 +160,13 @@ const CardName = styled.h3`
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.color.text[1]};
   margin: 0;
+  transition: color 0.2s ease;
+
+  /* Ties the title to its card: hovering anywhere on the card highlights it,
+     so the card reads as one object rather than a bordered box of parts. */
+  ${FeatureCard}:hover & {
+    color: ${({ theme }) => theme.color.accent};
+  }
 `
 
 const CardBody = styled.div`
@@ -248,6 +256,11 @@ const MiniName = styled.h3`
   font-weight: 600;
   color: ${({ theme }) => theme.color.text[1]};
   margin: 0;
+  transition: color 0.2s ease;
+
+  ${MiniCard}:hover & {
+    color: ${({ theme }) => theme.color.accent};
+  }
 `
 
 const MiniText = styled.p`
@@ -400,6 +413,15 @@ const ContactKey = styled.span`
 const ContactValue = styled.span`
   color: ${({ theme }) => theme.color.text[2]};
   overflow-wrap: anywhere;
+
+  a {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+
+  a:hover {
+    transform: translateX(2px);
+  }
 `
 
 export function Home() {
@@ -628,6 +650,7 @@ export function Home() {
 
       </Main>
       <Footer />
+      <BackToTop />
     </>
   )
 }

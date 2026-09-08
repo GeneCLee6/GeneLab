@@ -44,6 +44,12 @@ export const Button = styled.a<{ $variant?: 'primary' | 'secondary'; $compact?: 
             background: ${theme.color.surface};
             color: ${theme.color.text[1]};
           }
+
+          /* Trailing glyph moves the way the action does: download nudges
+             down, the link arrow moves right. */
+          &:hover svg {
+            transform: translateY(2px);
+          }
         `
       : css`
           background: ${theme.color.accent};

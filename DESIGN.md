@@ -223,6 +223,38 @@ non-visual reasons.
 - **Claims are checked against the code**, not written from memory. Project
   copy describes what is actually in each repo.
 
+### Micro-interactions
+
+Motion lives on things the reader actually touches, not in the background. A
+decorative animated backdrop would work against what this page is arguing —
+it is a site about systems that behave predictably — and it is the same class
+of filler as the fake terminal that round 6 removed.
+
+What responds, and why:
+
+- **Project cards** — hovering anywhere on a card turns its title `accent`.
+  One cue that binds the card into a single object, without moving anything.
+- **Tags** — deepen their own domain colour rather than shifting neutral, so
+  the taxonomy still reads while responding. `cursor: default` and no
+  movement, because they are not clickable.
+- **Trailing glyphs move the way the action does**: the download arrow nudges
+  down, link arrows move right.
+- **Links** in the contact card and footer columns shift 2–3px toward the
+  reader.
+- **The logo mark** scales 6% on hover.
+
+Everything is a 0.18–0.22s ease on colour, border or a few pixels of
+transform. Nothing lifts, glows or scales dramatically — see §1.
+
+### Back to top
+
+`BackToTop` appears once the reader is a full viewport down. Its real
+justification is mobile: **under 780px the header's nav links are hidden**, so
+a reader at the bottom of the page otherwise has no way back up. On desktop
+the sticky header already keeps every section one click away, which is why the
+control stays small and hidden until it is plausibly wanted. It honours
+`prefers-reduced-motion` by jumping rather than smooth-scrolling.
+
 ## 7. Motion
 
 Scroll-triggered reveal (fade + 22px rise, staggered by 60–120ms) on major

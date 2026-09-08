@@ -95,6 +95,14 @@ const BrandRow = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.space[3]};
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.06);
+  }
   font-weight: 600;
   font-size: 15.5px;
   letter-spacing: -0.01em;
@@ -132,11 +140,14 @@ const ColLinks = styled.ul`
   gap: ${({ theme }) => theme.space[3]};
 
   a {
+    display: inline-block;
     font-size: 14.5px;
     color: ${({ theme }) => theme.color.text[2]};
+    transition: color 0.18s ease, transform 0.18s ease;
 
     &:hover {
       color: ${({ theme }) => theme.color.text[1]};
+      transform: translateX(3px);
     }
   }
 `

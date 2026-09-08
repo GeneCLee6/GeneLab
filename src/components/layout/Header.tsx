@@ -29,6 +29,14 @@ const Wordmark = styled(Link)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.space[3]};
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.06);
+  }
   font-family: ${({ theme }) => theme.font.sans};
   font-weight: 600;
   font-size: 15.5px;
