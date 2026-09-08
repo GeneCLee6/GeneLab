@@ -1,13 +1,16 @@
 import styled from 'styled-components'
 
-// The recurring mono "code comment" section label (`// projects`) — see
-// DESIGN.md §5 "Section labels". Shared so every section reuses the same
-// style instead of each page re-declaring its own near-identical version
-// (RULES.md §2 DRY flags this exact duplication).
+// Recurring small-caps mono section label. The one piece of consistent
+// "engineer" personality on the site — used once at the top of each section.
+//
+// Round 6 dropped the `// comment` prefix it used to carry: a code-comment
+// device on a label that isn't code is decoration, and this theme earns its
+// character from typography and density instead.
 export const SectionEyebrow = styled.div`
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 13px;
-  color: ${({ theme }) => theme.color.accent2};
-  letter-spacing: 0.06em;
-  margin-bottom: ${({ theme }) => theme.space[5]};
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: ${({ theme }) => theme.color.text[3]};
+  margin-bottom: ${({ theme }) => theme.space[4]};
 `

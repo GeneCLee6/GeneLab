@@ -1,291 +1,155 @@
 # DESIGN.md — Visual Design System
 
-This is the written spec behind the design canvas ("Home" and "Resume" artboards)
-drafted for GeneLab. It exists so implementation work stays consistent with the
-approved direction without needing to re-open the canvas every time.
+The spec for what is actually built. Round 6 replaced the design wholesale, so
+this file was rewritten rather than amended — the earlier rounds' rationale
+(warm cream, coral/sage, Fraunces, gradient hero visuals) described a design
+that no longer exists anywhere in the codebase, and keeping it would have made
+this document misleading rather than historical.
 
 ## 1. Direction
 
-**Technical minimalism — now bolder (round 3).** Still a dark, code-editor-
-adjacent UI with a geometric display face and monospace used deliberately
-(nav labels, tags, section markers styled as code comments — `// experience`).
-The goal is still "clean, modern, credible software engineer," not a generic
-marketing template — but per Gene's direct round-3 feedback ("too plain/
-monotonous," hover states "not well done," wants it "impressive" with more
-color: purple, peach, blue) two of the original constraints are explicitly
-**superseded**:
+**Dark technical.** Near-black neutral base, one cool accent, precise
+sans-serif, monospace reserved for metadata. The reference points are the
+tools this audience uses daily — Linear, Vercel, the Anthropic console — not
+portfolio templates.
 
-- The old "one accent + sparing amber" palette is now a genuine three-hue
-  purple/blue/peach system, and gradients between those hues are allowed
-  (previously avoided as an "AI slop" gradient-blob trope — see §2 for why
-  this reads as controlled, not blob-y).
-- "Avoid gradient-blob hero backgrounds" is relaxed to "avoid *uncontrolled*
-  gradient washes" — the hero now carries deliberate, contained gradient use
-  (headline text-fill, button fills, small blurred glow shapes anchored to a
-  hero visual), not a full-bleed gradient wash behind everything.
+### Why this replaced the previous direction
 
-Still avoided, unchanged from earlier rounds: rounded cards with a
-*left*-border accent stripe (the new per-card accent lives on a *top* bar
-instead — see §5 "Cards"), emoji as UI icons, stock "Inter everywhere"
-typography, fake OS/device chrome (no fake status bars).
+Rounds 4 and 5 pursued a "cozy" aesthetic: warm cream background, Fraunces
+serif display face, coral accent. It was executed cleanly, but it was solving
+the wrong problem. Gene is applying for AI/backend engineering roles at
+technical companies. A warm serif-and-cream palette reads as craft blog or
+lifestyle brand; the people screening these applications read it as *not an
+engineer*. "Cozy" and "credible engineer" were pulling in opposite directions,
+and cozy was winning.
 
-**Reference, and what we deliberately did not copy:** Gene pointed at
-[cracklingmedia.com/our-services/website-design](https://www.cracklingmedia.com/our-services/website-design)
-for tone — a dark-navy hero with a huge all-caps display headline, white
-pill-shaped chips, and a layered laptop+phone mockup. We translated the
-*principles* (oversized headline treatment, saturated color, pill chips,
-layered visual weight on one side of the hero) into GeneLab's own vocabulary
-rather than recreating that site's specific look: our headline stays sentence
-case with one gradient-filled phrase (not all-caps), our chips are tinted/
-translucent per-hue rather than solid white, and the "device mockup" is an
-abstract layered terminal-window + stat-card motif (fits the technical-
-minimalism brand) rather than a literal phone/laptop illustration.
+The fix was not more polish on the cream theme. It was changing what the page
+is trying to signal.
 
-## 2. Color palette
+### What carries the credibility
 
-**Base decision: deepened into a rich purple-navy, not near-black, and not
-flipped to light mode.** Staying dark keeps continuity with the two prior
-rounds (a full light-mode flip would be a much bigger swing than what Gene
-asked for), but the old near-black `#0B0D12` read as flat under a
-multi-hue accent system — a purple-tinted dark base lets the palette feel
-like one cohesive family instead of "grayscale UI + colorful stickers."
+Density and specificity, not decoration. The single biggest change in round 6
+is not the palette — it is that the page now says real things. The previous
+hero paired a 76px headline with a fake statistics card and a mock terminal
+printing `npm run build`. Any engineer reading that recognizes it instantly as
+someone with nothing concrete to show. It was replaced with the actual
+engineering detail of the actual projects.
 
-| Token | Hex | Usage |
-|---|---|---|
-| `color.ink.950` | `#150F2E` | Page background — deep purple-navy |
-| `color.ink.900` | `#1E1740` | Card / surface background, full-bleed section band tint |
-| `color.ink.800` | `#281F52` | Elevated surface — project cards now sit here (see §5) |
-| `color.border` | `#3A2F66` | Card borders, dividers, input borders |
-| `color.border.soft` | `#241C48` | Faint background grid lines only |
-| `color.text.1` | `#F5F2FC` | Primary text, headings |
-| `color.text.2` | `#B6ADD1` | Secondary text, body copy on dark surfaces |
-| `color.text.3` | `#766B9B` | Tertiary text, timestamps, placeholder labels |
-| `color.accent` (purple) | `#8B6EFF` | Primary interactive color — buttons, focus rings, CoverCompass card hue |
-| `color.accent2` | `#B79CFF` | Links, hover states, lighter accent text |
-| `color.blue` | `#4F8CFF` | Second accent hue — MelCoverCompare card, chip, glow |
-| `color.peach` | `#FF9D72` | Third accent hue — WearCast card, chip, glow |
-| `color.gradient` | `linear-gradient(135deg, #8B6EFF 0%, #4F8CFF 55%, #FF9D72 100%)` | Primary buttons, gradient headline word, logo "Lab", nav-link hover underline, contact-panel border |
+### Deliberately avoided
 
-Notes:
-- `text.1` on `ink.950` and `text.2` on `ink.950`/`ink.900` both stay
-  comfortably AA/AAA for their use (primary and secondary copy) — checked by
-  eye against the old ratios, which were similar orders of magnitude; nothing
-  here is intentionally lower-contrast than round 2.
-- Primary buttons use the `gradient` background with `ink.950` text (not
-  white) — same reasoning as before: dark text reads better against the
-  mid-light purple/peach end of the gradient than white does.
-- **`accentAmber` is retired.** It was "one sparing secondary accent for
-  category tags." Category tags now take their color from each project's
-  `hue` (`purple` | `blue` | `peach`, `src/data/projects.ts`) instead of one
-  fixed color — this is the mechanism behind "cards don't look identical"
-  (§5 "Cards" / "Section variation").
-- Gradients are used in exactly five deliberate places (buttons, the hero's
-  one gradient-text phrase, the logo "Lab", nav-underline sweep, the contact
-  panel's hairline border) — not as a background wash. That restraint is
-  what keeps this "bolder," not "busier."
-- There is no light mode in v1. If one is added later, keep the same token
-  *roles* (background / surface / border / text-1/2/3 / accent) and only
-  change the concrete hex values, same pattern CoverCompass uses for its
-  dark mode.
+- Decorative visuals standing in for content — fake dashboards, mock terminals,
+  device chrome, blurred gradient blobs.
+- Oversized hero type. The headline caps at 52px and must fit two lines.
+- Multi-hue palettes. One accent, full stop — a standing correction from an
+  earlier round where a rotating three-hue system read as busy ("太花了").
+- Hover states that lift, glow, or scale. Border and background shifts only.
+- Emoji as UI icons.
 
-## 3. Typography
+## 2. Color
 
-Three Google Fonts, one job each:
+All tokens live in `src/theme/theme.ts`. Never hardcode a hex in a component.
 
-| Font | Role |
-|---|---|
-| **Space Grotesk** (500, 700) | Display — all headings, logo wordmark |
-| **IBM Plex Sans** (400, 500, 600) | Body copy, buttons, nav (non-mono items) |
-| **IBM Plex Mono** (400, 500) | Section eyebrows (`// projects`), tags, code-styled UI (the contact block), nav links |
+| Token | Value | Role |
+| --- | --- | --- |
+| `bg` | `#0B0D10` | Page base. Slightly cool near-black; pure black makes elevation unreadable. |
+| `band` | `#0E1114` | Section band tint, between `bg` and `surface`. |
+| `surface` | `#12151A` | Cards and panels. |
+| `surfaceHover` | `#171B22` | Hover state for elevated surfaces. |
+| `border` | `#232830` | Hairline. Does the structural work a light theme gives to shadows. |
+| `borderStrong` | `#333B47` | Hover/emphasis borders. |
+| `text.1` | `#E6E9EF` | Primary. Cool off-white — #FFF vibrates at large sizes on near-black. |
+| `text.2` | `#9AA3B0` | Body copy. ~8:1 on `bg`. |
+| `text.3` | `#757E8C` | Metadata and labels. ~5:1 on `bg`, still AA for normal text. |
+| `accent` | `#6C8EFF` | The only accent. ~6.5:1 on `bg`, so it is safe as small text. |
+| `accentHover` | `#8FA9FF` | Hover for accent-colored text and fills. |
+| `accentSoft` | `rgba(108,142,255,0.12)` | Soft fills. Alpha, so it composites over both `bg` and `surface`. |
+| `accentBorder` | `rgba(108,142,255,0.32)` | Accent-tinted borders. |
 
-```css
-font-family: 'Space Grotesk', system-ui, sans-serif;   /* display */
-font-family: 'IBM Plex Sans', system-ui, sans-serif;   /* body */
-font-family: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace; /* mono */
-```
+**Accent budget.** Roughly one accent element per viewport. Currently: the
+emphasized phrase in the hero headline, the `Lab` in the wordmark, links,
+primary buttons, stack-group labels, and the active nav route. If a new
+accent use is added, check whether an existing one should give way.
 
-### Type scale (base = 16px)
+**Text on accent fills is `bg`, not white.** The accent is bright enough that
+white-on-accent falls under 3:1.
 
-| Token | Size | Weight | Font | Usage |
-|---|---|---|---|---|
-| `display` | `clamp(42px, 5vw, 76px)` / 1.06 | 700 | Space Grotesk | Hero headline — **round 3: bumped from a fixed 60px**, per Gene's "too plain/safe" feedback. Fluid via `clamp()` instead of a single breakpoint swap so it scales smoothly instead of jumping. |
-| `h1` | 42px / 1.15 | 700 | Space Grotesk | Page title (Resume name) |
-| `h2` | 34px / 1.2 | 700 | Space Grotesk | Section heading ("Selected work") |
-| `h3` | 20–22px / 1.3 | 700 | Space Grotesk | Card / entry titles |
-| `body-lg` | 19px / 1.65 | 400 | IBM Plex Sans | Hero sub-paragraph |
-| `body` | 14.5–15.5px / 1.6 | 400 | IBM Plex Sans | General copy |
-| `mono-label` | 11–13px / 1.4, uppercase, 0.04–0.06em tracking | 400–500 | IBM Plex Mono | Eyebrows, nav, tags |
-| `chip-label` | 12.5px, 0.02em tracking | 400 | IBM Plex Mono | Hero pill chips (new, see § Hero) |
+## 3. Type
 
-The headline also carries one gradient-filled phrase (`color.gradient`,
-`-webkit-background-clip: text`) rather than being uniformly `text.1` — see
-§ Hero below. That's the "oversized display headline" fix for "monotonous":
-size *and* a color break inside the headline itself, not just more padding
-around an unchanged headline (padding-only was already tried and rejected in
-round 2).
+- **Sans — Inter.** Display and body both. Headings get their character from
+  weight (600) and negative tracking (-0.02em to -0.032em), not from a second
+  display face.
+- **Mono — IBM Plex Mono.** Metadata only: section eyebrows, dates, tech tags,
+  key/value rows, the hero stack strip. Never body copy.
 
-## 4. Spacing scale
+| Role | Size | Weight | Tracking |
+| --- | --- | --- | --- |
+| Hero headline | `clamp(32px, 4.6vw, 52px)` | 600 | -0.032em |
+| Page title (resume name) | `clamp(28px, 4vw, 38px)` | 600 | -0.03em |
+| Section title | 24px | 600 | -0.02em |
+| Card title | 20px | 600 | -0.02em |
+| Body / lede | 15–17px | 400 | — |
+| Small body | 13.5–14.5px | 400 | — |
+| Mono eyebrow | 11.5px upper | 400 | 0.14em |
 
-4px base unit, same convention as the sibling projects:
+Measure is capped: headline `17ch`, lede `60ch`, prose `62ch`.
 
-`space.1=4px, space.2=8px, space.3=12px, space.4=16px, space.5=24px, space.6=32px, space.7=48px, space.8=64px, space.9=96px, space.10=128px`
+## 4. Layout
 
-- **Content max-width**: 1120px for the home page, 880px for the resume
-  (narrower measure — it's read top-to-bottom like a document, not scanned
-  like a landing page).
-- **Side padding**: 64px desktop, down to 20–24px mobile.
-- **Section vertical rhythm**: ~100–130px top/bottom padding between major
-  sections on the home page.
+- Containers: `home` 1080px, `resume` 820px, `wide` 1240px.
+- Sections are separated by a top hairline (`border`) plus `space[9]` padding,
+  dropping to `space[8]` under 640px. No alternating background bands — the
+  rhythm comes from content shape, not from color blocks.
+- Featured project cards are a 1fr / 1.45fr split: identity on the left,
+  substance on the right. Collapses to one column at 860px.
+- Secondary projects are a 3-up grid, one column at 860px.
+- Stack is 4 columns, 2 at 860px, 1 at 520px.
 
-## 5. Component patterns
+## 5. Components
 
-### Header / nav
-- Sticky, `rgba(21,15,46,0.86)` background (updated to the new `ink.950`
-  hue) + `backdrop-filter: blur(8px)`, 1px `color.border` bottom edge.
-- Logo wordmark: **`Gene` in `text.1`, `Lab` filled with `color.gradient`
-  (was flat `accent.2`), both Space Grotesk 700, capitalized** ("GeneLab" as
-  a wordmark) — capitalization decision from round 2 unchanged, only the
-  "Lab" fill updated to match the new multi-hue system. No cursor or blink
-  animation next to it — that decision from round 2 also stands; a hover
-  `filter: brightness(1.15)` is the wordmark's only interactive state.
-- Nav links: IBM Plex Mono, uppercase, letter-spacing 0.04em, `text.2` →
-  `text.1` on hover/active, plus (**round 3**) a `color.gradient` underline
-  that sweeps in from the left on hover/active via `right: 100% → 0`
-  transition — replaces the old color-only hover, which read as too subtle
-  per Gene's "hover states aren't well done" feedback. Hidden below ~640px
-  in favor of the trailing link group (below), which stays visible at every
-  width.
-- **Trailing link group** (always visible, right-aligned): a GitHub icon
-  link and a LinkedIn icon link, each a 34×34 bordered square with an
-  inline stroke-style glyph (`</>`-bracket paths for GitHub, not the octocat
-  mark; a simple "in" glyph for LinkedIn) and no text label at this size —
-  plus a compact "Resume" secondary button (§ Buttons, `$compact`) linking
-  to `/resume.pdf`. **Round 3 hover**: the icon squares fill with
-  `color.gradient` (border disappears, icon flips to `ink.950`), lift
-  `translateY(-3px)`, and gain a purple glow shadow — a considered state
-  change, not a border-color tweak. LinkedIn renders in its unset/
-  placeholder state (dashed border, `text.3`, non-interactive, no hover)
-  until a real URL is supplied — see § Placeholder convention. All three
-  links are sourced from `src/data/social.ts`, not hardcoded per-component.
+- **`Button`** — `primary` (accent fill, `bg` text) and `secondary` (bordered,
+  transparent). `$compact` for the header. 0.18s transitions on background,
+  border and color only.
+- **`IconButton`** — 32px square, bordered, for the header's GitHub/LinkedIn.
+- **`Tag`** — mono chip in three variants: default (quiet, bordered) for tech
+  stack, `accent` for category labels, `muted` (dashed) for states like
+  "Private repo" that must read as information rather than a link.
+- **`SectionEyebrow`** — uppercase mono label above each section title. Round 6
+  dropped its old `// comment` prefix: a code-comment device on something that
+  is not code is decoration.
+- **`Reveal`** — scroll-triggered fade + translateY. See §7.
 
-### Buttons
-- **Primary**: `color.gradient` background (was flat `accent`), `ink.950`
-  text, weight 600, `border-radius: 8px`, `14px 24px` padding, trailing
-  arrow icon on action buttons.
-- **Secondary**: transparent background, `1px solid color.border`, `text.1`
-  text. Same radius/padding as primary.
-- **Round 3 hover** (both variants): `translateY(-3px)` lift + a colored
-  glow `box-shadow` (purple/peach-tinted for primary, purple-tinted for
-  secondary) on a `cubic-bezier(.2,.8,.2,1)` transition, ~300ms. Primary's
-  trailing arrow icon also nudges right (`translateX(4px)`) on hover. This
-  replaces the old `filter: brightness(1.08)`-only primary hover and the
-  border-color-only secondary hover, both called out as "not good enough."
-- No all-caps button text (buttons use `body`-weight sentence case, only nav
-  and tags use mono/uppercase).
-- **Compact variant**: `8px 14px` padding, 12.5px font — used for the
-  header's Resume button so it sits comfortably next to the icon link
-  group without dominating the nav bar.
+## 6. Content honesty
 
-### Chips (new, round 3 — hero only)
-- Fully-rounded pill (`border-radius: 999px`), translucent hue-tinted fill
-  (`rgba(hue, 0.14)`) + matching 1px border, mono 12.5px label. Three
-  variants — `purple` / `blue` / `peach` — rotate across the hero's keyword
-  row (React / TypeScript / Full-stack / Independent builder). This is a
-  deliberately different shape from `Tag` (bordered, square-radius, used on
-  cards) — the closest GeneLab equivalent to the reference site's white pill
-  buttons, translated into the dark palette. Hover: fill opacity increases,
-  a hue-tinted glow shadow appears, `translateY(-2px) scale(1.03)`.
+This site is a hiring document, so the design has rules that exist for
+non-visual reasons.
 
-### Hero
-- Two-column layout ≥900px (copy left, a decorative visual right), single
-  column with the visual hidden below 900px — this is the structural fix
-  for "monotonous": the hero is no longer just a taller version of a
-  centered text block (that was already tried in round 2 and rejected).
-- The oversized headline (§3) carries one `color.gradient`-filled phrase
-  (`practical tools`) via `background-clip: text` — the one place gradient
-  renders as text fill rather than a background/shadow.
-- The hero visual is an abstract "layered device" composition standing in
-  for real product screenshots: three blurred, hue-tinted circular glows
-  (`filter: blur(60px)`, purple/blue/peach) behind two overlapping rotated
-  cards — a small stat-bar card and a mono "terminal" card showing generic
-  build/deploy flavor lines (`$ npm run build` / `✓ deployed`). This is the
-  one deliberate decorative/interactive touch beyond hover states: on
-  hover of the visual, the glows brighten/scale and both cards straighten
-  and lift slightly. Kept intentionally simple — no fake device/OS chrome.
+- **No dead links.** Three of the five projects are private repos. They render
+  a `muted` "Private repo" tag, never a link — the previous version linked to
+  repo URLs that 404'd, including two that had never existed under those names.
+- **Shipped work and learning are visually separate.** The stack grid lists
+  what Gene has built with; `learning` sits below a rule under its own label.
+  Merging them is how someone ends up claiming working knowledge in an
+  interview they cannot back up.
+- **Claims are checked against the code**, not written from memory. Project
+  copy describes what is actually in each repo.
 
-### Cards (project cards)
-- `ink.800` background (was `ink.900` — bumped one step lighter so cards
-  read as distinct from the `ink.900` band they now sit inside; see
-  "Section variation" below), `1px solid color.border`, `border-radius:
-  12px`, `28px` padding, plus (**round 3**) a 4px **top** accent bar in the
-  card's `hue` — still **no left-border accent stripe** (that constraint
-  from round 1 stands; the accent moved to the top edge, not the side).
-- **Each card now carries a `hue`** (`purple` | `blue` | `peach`, rotating
-  CoverCompass → MelCoverCompare → WearCast in `src/data/projects.ts`) that
-  colors its top bar, its category tag, and its hover border/glow. This
-  replaces the old "every category tag is amber" rule and is the concrete
-  fix for the three cards reading as visually identical.
-- Structure top-to-bottom: top accent bar → mono category tag (hue-colored,
-  uppercase) → `h3` title → body description → wrapped tech-stack tag row →
-  divider (`1px solid border`) → mono "View repository" link with arrow icon.
-- Tags (tech stack): mono, 11px, `1px solid border`, `4px` radius, `text.3`.
-  **Round 3 hover**: brighten to `text.1`, border to `accent2`, small
-  `translateY(-1px)` lift.
-- **Round 3 card hover**: `translateY(-8px)` lift, border color shifts to
-  the card's `hue`, and a matching hue-tinted glow `box-shadow` appears
-  (alongside a neutral drop shadow for depth) — `300–350ms`
-  `cubic-bezier(.2,.8,.2,1)`. The "View repository" link's arrow also nudges
-  right and the link brightens to `text.1` on its own hover.
+## 7. Motion
 
-### Section labels
-- Every major section opens with a mono "eyebrow" styled as a code comment:
-  `// projects`, `// contact`, `// experience`, `// skills`, `// education`.
-  This is the recurring structural device that ties the whole site together —
-  reuse it for any new section rather than inventing a different heading style.
+Scroll-triggered reveal (fade + 22px rise, staggered by 60–120ms) on major
+blocks. Fully disabled under `prefers-reduced-motion: reduce`.
 
-### Section variation (round 3 — the other half of "fix monotonous")
-- Each major Home section is now its own full-bleed background band instead
-  of every section sharing one flat page background inside a single
-  max-width wrapper: **Hero** sits on base `ink.950` with the page's corner
-  glows; **Projects** sits on a full-width `ink.900` band (bordered top/
-  bottom in `border.soft`) so the section reads as a distinct zone, which is
-  also why cards themselves moved to `ink.800` (one step lighter, to stay
-  visible against their new band); **Contact** sits on its own `ink.950`
-  band with a second, different two-corner gradient wash (blue top-right,
-  peach bottom-left) so it doesn't repeat Hero's corner glow verbatim.
-  Implementation: `Home.tsx`'s `Main` is full-width; a `Container`
-  (`max-width: 1120px`, centered) wraps each section's *content*, not the
-  section's background — see `ARCHITECTURE.md` if extending this pattern.
+**`Reveal` starts its children at opacity 0, which makes the reveal mechanism
+load-bearing for whether the page is visible at all.** This previously failed
+in production: a tab opened in the background can lay out at zero size, so
+nothing ever intersects, the observer never fires, and the visitor gets a blank
+page until they happen to scroll. `useInView` now carries two independent
+guards — reveal immediately if the element is already within the viewport at
+mount, and reveal unconditionally after a 1.5s timeout regardless of what the
+observer reported. Either alone prevents a blank page. Do not remove them.
 
-### Contact block
-- Rendered as a mock terminal panel: `ink.900` surface, mono type,
-  `$ contact --info` prompt line in `text.3`, then `key   value` rows —
-  `email`, `github`, `linkedin`, `resume`. Placeholder values render in
-  `text.3` (unset) vs. `accent.2`/link color (set) so it's visually obvious
-  what still needs filling in. `github` and `resume` are set (real handle,
-  wired download link); `email` and `linkedin` stay unset until Gene
-  supplies them. This is the second of the two places the GitHub/LinkedIn/
-  Resume links repeat (the first being the header) — both sourced from the
-  same `src/data/social.ts`.
-- **Round 3**: the panel now has a 1px `color.gradient` hairline border
-  (via the padding-box/mask-xor technique, ~50% opacity) instead of a flat
-  `border` color — the one place the gradient renders as a frame rather
-  than a fill. Set contact links (`github`, `resume`) get a hover color
-  shift to `accent` plus a soft purple `text-shadow` glow.
+## 8. Accessibility
 
-### Background texture
-- A faint 48px×48px grid (`border.soft`, 1px lines) plus (**round 3**, was
-  one) **two** low-opacity (~0.10–0.16) radial glows near the top corners —
-  purple top-left, blue top-right — on the page background. Still no large
-  gradient wash behind content; the glows stay corner-anchored and low-
-  opacity, consistent with §1's "controlled, not blob-y" note.
-
-## 6. Placeholder convention
-
-Any fact that isn't independently verifiable from the sibling repos (name,
-title, work history, education, contact details) is written as a bracketed
-placeholder — `[Add role]`, `[Add company name]`, `[Add contact email]` — and
-styled in `text.3` (or the placeholder tag's dashed border) so it visually
-reads as "not filled in yet" rather than as real content. The **Skills**
-section is the one exception: those tags are grounded in the tech actually
-used across CoverCompass / MelCoverCompare / WearCast, not invented.
+- Body text meets AA against `bg`; `text.3` is the floor at ~5:1.
+- `:focus-visible` gets an explicit 2px accent outline — the browser default is
+  nearly invisible on a near-black base.
+- Reduced motion disables both reveals and smooth scrolling.

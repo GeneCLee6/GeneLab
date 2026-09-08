@@ -1,39 +1,35 @@
 import styled, { css } from 'styled-components'
 
-// Shared primary/secondary button per DESIGN.md §5 "Buttons". Renders as an
-// <a> by default; pass `as={Link}` for internal routes (react-router) or
-// `as="button"` for a real button element. `$compact` shrinks padding/font
-// for tight contexts like the header (see DESIGN.md §5 "Header / nav").
+// Primary/secondary button. Renders as an <a> by default; pass `as={Link}`
+// for internal routes or `as="button"` for a real button element.
 //
-// Hover treatment (per Gene's round-3 feedback — the old opacity/border-only
-// hover "wasn't good enough"): both variants lift on hover (translateY),
-// gain a colored glow shadow, and use a considered easing/duration rather
-// than an instant flip.
+// Hover is a small, fast state change — border and background shift, no lift,
+// no glow. On a dark technical theme an oversized hover animation is what
+// makes a site read as a template; restraint is what reads as considered.
 export const Button = styled.a<{ $variant?: 'primary' | 'secondary'; $compact?: boolean }>`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.space[2]};
-  font-family: ${({ theme }) => theme.font.body};
-  font-weight: 600;
+  font-family: ${({ theme }) => theme.font.sans};
+  font-weight: 500;
   border-radius: ${({ theme }) => theme.radius.md};
   white-space: nowrap;
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 
   ${({ $compact }) =>
     $compact
       ? css`
-          padding: 8px 14px;
-          font-size: 12.5px;
+          padding: 7px 13px;
+          font-size: 13px;
         `
       : css`
-          padding: 14px 24px;
-          font-size: 15px;
+          padding: 11px 20px;
+          font-size: 14.5px;
         `}
 
   svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.18s ease;
   }
 
   ${({ theme, $variant }) =>
@@ -44,66 +40,45 @@ export const Button = styled.a<{ $variant?: 'primary' | 'secondary'; $compact?: 
           color: ${theme.color.text[1]};
 
           &:hover {
-            border-color: ${theme.color.accent2};
-            background: rgba(139, 110, 255, 0.1);
+            border-color: ${theme.color.borderStrong};
+            background: ${theme.color.surface};
             color: ${theme.color.text[1]};
-            transform: translateY(-3px);
-            box-shadow: 0 10px 26px rgba(139, 110, 255, 0.2);
           }
         `
       : css`
-          background: ${theme.color.gradient};
-          border: 1px solid transparent;
-          color: ${theme.color.ink[950]};
+          background: ${theme.color.accent};
+          border: 1px solid ${theme.color.accent};
+          /* Dark text on the accent fill: the accent is bright enough that
+             white-on-accent falls under 3:1. */
+          color: ${theme.color.bg};
 
           &:hover {
-            filter: brightness(1.05);
-            color: ${theme.color.ink[950]};
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(139, 110, 255, 0.4), 0 6px 18px rgba(255, 157, 114, 0.25);
+            background: ${theme.color.accentHover};
+            border-color: ${theme.color.accentHover};
+            color: ${theme.color.bg};
           }
 
           &:hover svg {
-            transform: translateX(4px);
+            transform: translateX(3px);
           }
         `}
-
-  &:hover {
-    text-decoration: none;
-  }
 `
 
-// Icon-only variant for the header's GitHub/LinkedIn links — a square
-// bordered pill matching the resume button's weight without the label.
-// Hover fills with the gradient (rather than just brightening the border)
-// so it reads as a deliberate interactive state, not a subtle tweak.
-export const IconButton = styled.a<{ $disabled?: boolean }>`
+// Icon-only square, used for the header's GitHub/LinkedIn links.
+export const IconButton = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.radius.md};
-  color: ${({ theme }) => theme.color.text[1]};
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  color: ${({ theme }) => theme.color.text[2]};
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
 
-  ${({ $disabled, theme }) =>
-    $disabled
-      ? css`
-          color: ${theme.color.text[3]};
-          border-style: dashed;
-          cursor: default;
-          pointer-events: none;
-        `
-      : css`
-          &:hover {
-            border-color: transparent;
-            background: ${theme.color.gradient};
-            color: ${theme.color.ink[950]};
-            text-decoration: none;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(139, 110, 255, 0.4);
-          }
-        `}
+  &:hover {
+    border-color: ${({ theme }) => theme.color.borderStrong};
+    background: ${({ theme }) => theme.color.surface};
+    color: ${({ theme }) => theme.color.text[1]};
+  }
 `

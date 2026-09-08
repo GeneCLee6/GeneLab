@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
   * {
     box-sizing: border-box;
@@ -9,39 +9,46 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     color-scheme: dark;
+    scroll-behavior: smooth;
   }
 
   body {
     margin: 0;
-    background-color: ${({ theme }) => theme.color.ink[950]};
+    background: ${({ theme }) => theme.color.bg};
     color: ${({ theme }) => theme.color.text[1]};
-    font-family: ${({ theme }) => theme.font.body};
-    background-image:
-      radial-gradient(circle at 12% -10%, rgba(139, 110, 255, 0.16), transparent 42%),
-      radial-gradient(circle at 95% 8%, rgba(79, 140, 255, 0.10), transparent 40%),
-      linear-gradient(${({ theme }) => theme.color.borderSoft} 1px, transparent 1px),
-      linear-gradient(90deg, ${({ theme }) => theme.color.borderSoft} 1px, transparent 1px);
-    background-size: auto, auto, 48px 48px, 48px 48px;
+    font-family: ${({ theme }) => theme.font.sans};
+    -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
 
   a {
-    color: ${({ theme }) => theme.color.accent2};
+    color: ${({ theme }) => theme.color.accent};
     text-decoration: none;
-    transition: color 0.25s ease;
+    transition: color 0.2s ease;
   }
 
   a:hover {
-    color: ${({ theme }) => theme.color.accent};
-    text-decoration: underline;
+    color: ${({ theme }) => theme.color.accentHover};
+  }
+
+  /* Visible keyboard focus. The dark base makes the browser default ring
+     nearly invisible, so it is replaced rather than removed. */
+  :focus-visible {
+    outline: 2px solid ${({ theme }) => theme.color.accent};
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   ::selection {
     background: ${({ theme }) => theme.color.accent};
-    color: ${({ theme }) => theme.color.ink[950]};
+    color: ${({ theme }) => theme.color.bg};
   }
 
   @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

@@ -29,18 +29,25 @@ src/
     GlobalStyle.ts    global CSS reset + font-face/font-link wiring
   components/
     layout/           Header — shared across routes
-    ui/               small reusable primitives (Button/IconButton, Tag, SectionEyebrow)
+    ui/               small reusable primitives (Button/IconButton, Tag,
+                       SectionEyebrow, Reveal)
+  hooks/
+    useInView.ts      IntersectionObserver + two blank-page guards (DESIGN.md §7)
   pages/
-    Home.tsx          hero + projects + contact (single scrolling page)
-    Resume.tsx         experience/skills/projects/education (stub today)
+    Home.tsx          hero + work + product work + stack + about (one scrolling page)
+    Resume.tsx         full resume rendered from data/resume.ts
   data/
-    projects.ts       the three project cards (title, tag, description, tech, repo url)
-    social.ts         GitHub/LinkedIn/Resume links — single source for both the
-                       header link group and the Contact section footer
+    projects.ts       all five projects; `repoUrl: null` marks a private repo
+    resume.ts         summary, experience, education, training — mirrors
+                       ../Resume/Gene_Resume_2026_Draft.md, keep in sync
+    skills.ts         stack groups + a separate `learning` list
+    social.ts         email/GitHub/LinkedIn/Resume links, used by Header,
+                       Home's contact card, and the Resume page
   App.tsx             router setup
   main.tsx            entry point
 public/
   favicon.svg
+  Gene_Lee_Resume.pdf  copy of Resume/Gene_Resume_2026.pdf
 ```
 
 Why `pages/` even though there's no framework routing convention forcing it:

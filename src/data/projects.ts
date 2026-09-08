@@ -1,54 +1,89 @@
-// Project card content — edit here, not inline in Home.tsx (RULES.md §2 DRY,
-// ARCHITECTURE.md). Descriptions are grounded in each sibling repo's own
-// README.md — see CLAUDE.md "no invented personal facts" for why that
-// matters here. `repoUrl` assumes each project lives under Gene's GitHub
-// account at its project name; update if a repo is renamed or made private.
-
-// `hue` is design metadata only (which accent color a card's top bar,
-// category tag, and hover glow use) — not a content field, so it doesn't
-// fall under CLAUDE.md's "no invented facts" rule. Rotates purple/blue/peach
-// across the three cards per DESIGN.md §5 "Cards".
-export type ProjectHue = 'purple' | 'blue' | 'peach'
+// Project content. Descriptions are grounded in what each repo actually
+// contains — checked against the code, not written from memory. See
+// CLAUDE.md "no invented facts" for why that matters on this site
+// specifically.
+//
+// `repoUrl: null` means the repo is private. It renders as a "Private repo"
+// label, never as a link — a portfolio whose links 404 is worse than one
+// that shows fewer links, and three of these projects genuinely are private.
 
 export interface Project {
   slug: string
   name: string
+  /** Short mono label — what kind of thing this is. */
   category: string
+  /** One-sentence what-it-does. */
   description: string
+  /** The engineering point — what was actually hard or worth showing. */
+  detail: string
   tech: string[]
-  repoUrl: string
-  hue: ProjectHue
+  repoUrl: string | null
+  /** Set when the repo is private, to explain the missing link honestly. */
+  note?: string
+  /** Featured projects render in the larger two-column treatment. */
+  featured?: boolean
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'oncallops',
+    name: 'OnCallOps',
+    category: 'AI voice agent · team project',
+    description:
+      'A multi-tenant SaaS where an AI answers overflow phone calls for trade businesses — taking the job, checking capacity, and booking it without a human picking up.',
+    detail:
+      'I own the booking and capacity subsystem: atomic slot holds and idempotent confirmation under concurrent calls, an expiry sweep for stale holds, and the guard layer that constrains what the agent is allowed to promise a caller — service area, address validation, booking authority, safety priority. Built with a race-condition test suite, because the failure mode here is double-booking a real tradesperson.',
+    tech: ['Python', 'LangGraph', 'FastAPI', 'SQLAlchemy', 'PostgreSQL', 'pytest'],
+    repoUrl: null,
+    note: 'Private repo — public demo planned',
+    featured: true,
+  },
+  {
+    slug: 'careermate',
+    name: 'CareerMate',
+    category: 'REST API · resume platform',
+    description:
+      'A resume-management backend: accounts, authentication, and secure resume upload and retrieval.',
+    detail:
+      'The interesting part is the upload path — files never pass through the API. The client gets a short-lived S3 presigned URL, uploads directly, and the server validates the object server-side (type and size via HeadObject) before it is promoted out of the temp prefix. Layered on JWT auth with role guards, Zod request validation, rate limiting, and Winston structured logging. Deployed on AWS Elastic Beanstalk.',
+    tech: ['Node.js', 'Express', 'MongoDB', 'AWS S3', 'Elastic Beanstalk', 'JWT', 'Zod'],
+    repoUrl: 'https://github.com/GeneCLee6/careermate_backend',
+    featured: true,
+  },
   {
     slug: 'covercompass',
     name: 'CoverCompass',
     category: 'Web app · tax planning',
     description:
-      'Independent MLS / Lifetime Health Cover planning calculator for Australian taxpayers — quantifies the lifetime financial impact of buying vs. not buying private hospital cover.',
+      'Lifetime Health Cover and Medicare Levy Surcharge calculator for Australian taxpayers — quantifies the long-run cost of buying versus skipping private hospital cover.',
+    detail: '',
     tech: ['React', 'TypeScript', 'Vite', 'styled-components'],
-    repoUrl: 'https://github.com/GeneCLee6/CoverCompass',
-    hue: 'purple',
+    repoUrl: null,
+    note: 'Private repo',
   },
   {
     slug: 'melcovercompare',
     name: 'MelCoverCompare',
     category: 'Web app · insurance',
     description:
-      'A Melbourne car insurance comparison tool: compare quotes across insurers, see plain-English pricing explanations, and get one best-value recommendation.',
-    tech: ['React', 'TypeScript', 'Radix UI', 'styled-components'],
-    repoUrl: 'https://github.com/GeneCLee6/MelCoverCompare',
-    hue: 'blue',
+      'Melbourne car insurance comparison — compares quotes across insurers with plain-English pricing explanations and a single best-value recommendation.',
+    detail: '',
+    tech: ['React', 'TypeScript', 'Radix UI', 'Playwright'],
+    repoUrl: null,
+    note: 'Private repo',
   },
   {
     slug: 'wearcast',
     name: 'WearCast',
     category: 'PWA · weather',
     description:
-      'A weather-based outfit recommendation PWA: daily forecasts for favourite cities, paired with automatic outfit suggestions.',
+      'Weather-driven outfit recommendations — daily forecasts for saved cities paired with automatic what-to-wear suggestions, installable as a PWA.',
+    detail: '',
     tech: ['React', 'TypeScript', 'Vite PWA', 'Zustand'],
-    repoUrl: 'https://github.com/GeneCLee6/WearCast',
-    hue: 'peach',
+    repoUrl: null,
+    note: 'Private repo',
   },
 ]
+
+export const featuredProjects = projects.filter((p) => p.featured)
+export const otherProjects = projects.filter((p) => !p.featured)

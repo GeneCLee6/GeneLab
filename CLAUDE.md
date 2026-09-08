@@ -19,65 +19,59 @@ Vite + styled-components). Single owner, static content, no backend.
 
 ## Current status
 
-As of this writing, the Home page is feature-complete for v1 and the Resume
-page is still a stub:
+Both pages are built with Gene's real content. **Round 6** replaced the visual
+direction wholesale and filled in everything that was previously a placeholder
+— see `DESIGN.md` for the full rationale.
 
-- Done: `PRD.md` / `DESIGN.md` / `ARCHITECTURE.md` / `CLAUDE.md`, a design
-  canvas exploring the visual direction (Home + Resume artboards), project
-  scaffold (Vite + React + TypeScript + styled-components), `src/theme/`
-  (tokens + GlobalStyle matching `DESIGN.md`), and a complete Home page —
-  Header, Hero, Projects (all three project cards), and Contact section.
-  The header carries GitHub + LinkedIn icon links and a Resume download
-  button (`src/data/social.ts`), visible on every page since `Header` is
-  shared layout.
-- This revision pass (per Gene's direct feedback on the first design round)
-  also: capitalized the logo wordmark (`GeneLab`, was lowercase `genelab`),
-  removed the blinking cursor next to it, and added the GitHub/LinkedIn/
-  Resume links described above in both the header and the Contact section
-  footer.
-- **Round 3** (per Gene's direct feedback: too plain/monotonous, hover
-  states not good enough, wants it "impressive" with more color) changed
-  the visual direction — see `DESIGN.md` §1/§2 for the full rationale.
-  Short version: the palette expanded from one purple accent + sparing
-  amber to a cohesive purple/blue/peach gradient system on a deepened
-  purple-navy base; the hero got an oversized gradient-accented headline,
-  a pill-chip row, and a decorative layered glow/terminal-card visual;
-  Home's three sections (Hero/Projects/Contact) now each have their own
-  full-bleed background band instead of sharing one flat backdrop; project
-  cards each carry a rotating purple/blue/peach `hue` (top accent bar +
-  category tag) instead of one-size-fits-all amber tags; and every
-  interactive element (nav, buttons, icon links, cards, tags, contact
-  links) got a considered hover treatment (lift + color/gradient shift +
-  glow shadow) replacing the earlier opacity/border-only hovers. The design
-  canvas Artifact was updated in place with the same changes.
-- **Not yet implemented**: the full Resume page (`/resume` route with real
-  Experience/Skills/Projects/Education content — it currently renders a
-  placeholder stub), and any deployment setup. `npm run dev` runs and shows
-  the complete Home page; the Resume page build-out is the next work
-  session's scope.
+- **Home** (`/`) — hero, featured work (OnCallOps, CareerMate), secondary
+  product work, stack, about + contact. No placeholders remain.
+- **Resume** (`/resume`) — the real resume: summary, experience with bullets,
+  skills, other experience, education, training, and a working PDF download.
+  Content lives in `src/data/resume.ts`.
+- **Round 6 fixed three things that were broken, not merely ugly**: the page
+  rendered blank until the visitor scrolled (`DESIGN.md` §7), every project
+  "View repository" link 404'd (two of the repo names had never existed, and
+  all three repos are private), and the header's Resume button pointed at a
+  file that was not in `public/`.
+- Why the earlier direction was abandoned: rounds 4–5 pursued a warm-cream,
+  serif, "cozy" aesthetic that read as a craft blog rather than an engineer —
+  the wrong signal for the AI/backend roles Gene is applying to. Those rounds
+  were never committed; round 6 is the first commit since round 3.
 
-## Hard rule: no invented personal facts
+Earlier rounds (1–3, purple-navy dark with gradient hero visuals; 4–5, warm
+cream and coral) are superseded and no longer described here — see the git
+history if the reasoning is ever needed.
 
-This is the one rule that matters more than anything else in this repo.
+- **Not yet done**: deployment. `vercel.json` exists but the site has never
+  been deployed — Gene plans to put it on Vercel.
 
-- **Never write real biographical facts you weren't given** — work history,
-  job titles, employer names, education, dates, phone numbers, or email
-  addresses. Gene's actual resume content has not been provided to any
-  Claude session that built this repo.
-- Anywhere that content is needed, use a clearly bracketed placeholder —
-  `[Add role/company]`, `[Add contact email]`, `[Add LinkedIn URL]` — styled
-  per `DESIGN.md` §6 so it visually reads as unfinished, not as real content.
-- The one exception is the **Skills** section: those tags are grounded in
-  technology genuinely used across the sibling repos (CoverCompass,
-  MelCoverCompare, WearCast) — React, TypeScript, Vite, styled-components,
-  Radix UI, Zustand, Vitest, Playwright, ESLint — which is verifiable from
-  those repos, unlike work history.
-- Project descriptions (CoverCompass / MelCoverCompare / WearCast) should
-  stay in sync with each project's own `README.md` one-liner — check there
-  before editing copy, don't embellish.
-- If a task asks you to "fill in the resume" or similar without supplying
-  real content, push back and ask for the actual details rather than
-  inventing something plausible-sounding.
+## Hard rule: no invented facts
+
+Still the rule that matters most here, but its scope changed in round 6.
+
+**Gene's real resume content has now been supplied.** It lives in
+`src/data/resume.ts` and mirrors `../Resume/Gene_Resume_2026_Draft.md`, the
+source that also generates `public/Gene_Lee_Resume.pdf`. Those must stay in
+sync: if a title, date or bullet changes in one, change it in the other in the
+same pass.
+
+What has not changed:
+
+- **Never invent a fact you weren't given** — no new employers, dates, titles,
+  metrics, or technologies. If something is needed and unknown, ask Gene
+  rather than writing something plausible.
+- **Verify a technology before claiming it.** Project and skill copy is checked
+  against the actual repos, not written from memory. This has already caught
+  real errors: CareerMate was nearly described as an AI project (its backend
+  has no LLM dependency at all — it is auth, S3 uploads and MongoDB), and the
+  resume once claimed EC2 experience that turned out to be Elastic Beanstalk
+  provisioning EC2 on Gene's behalf.
+- **Keep shipped work separate from learning.** `learning` in
+  `src/data/skills.ts` renders in its own labelled row. Don't promote an entry
+  into the main stack groups without confirming Gene has actually built with it.
+- **Never render a link that 404s.** `repoUrl: null` in `src/data/projects.ts`
+  means the repo is private; it renders as a "Private repo" tag, not a link.
+  Three of the five projects are in that state.
 
 ## Common commands
 
@@ -96,14 +90,12 @@ testing.)
 
 - Design tokens only live in `src/theme/theme.ts` — don't hardcode hex
   colors or font stacks in components; pull from `theme`.
-- New sections should reuse the established patterns from `DESIGN.md`
-  (mono "eyebrow" section labels styled as code comments, the card pattern
-  with no left-border accent stripe, etc.) rather than inventing new visual
-  language per-section.
-- Project card content lives in `src/data/projects.ts` (see
-  `ARCHITECTURE.md`) — edit there, not inline in JSX.
-- GitHub/LinkedIn/Resume links live in `src/data/social.ts` — edit there,
-  not inline in `Header.tsx` or `Home.tsx`. This matters because the GitHub
-  username (`GeneCLee6`) may change; centralizing it keeps that a one-line
-  edit. A link with `url: null` renders as an unfilled placeholder per
-  `DESIGN.md` §6, never as a broken/dead link.
+- New sections should reuse the patterns in `DESIGN.md` §5 (mono uppercase
+  eyebrow above a section title, hairline section dividers, the `Tag`
+  variants) rather than inventing new visual language per section.
+- Watch the accent budget (`DESIGN.md` §2): roughly one accent element per
+  viewport. Adding a new one usually means an existing one should give way.
+- All content lives in `src/data/` — `projects.ts`, `skills.ts`, `resume.ts`,
+  `social.ts`. Edit there, never inline in JSX.
+- `src/data/resume.ts` and `../Resume/Gene_Resume_2026_Draft.md` are two
+  copies of the same facts. Change both together.

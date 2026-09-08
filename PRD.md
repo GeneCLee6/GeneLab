@@ -14,20 +14,22 @@ static content, no backend.
 ## Sections / pages
 
 1. **Home** (`/`)
-   - **Hero**: nav, name/tagline, one-sentence positioning, two CTAs
-     (View projects, View resume).
-   - **Projects**: cards for CoverCompass, MelCoverCompare, WearCast — each
-     with a category tag, one-line description, tech-stack tags, and a link
-     out to the project's GitHub repo.
-   - **Contact**: placeholder email, GitHub handle (real: `@GeneCLee6`),
-     placeholder LinkedIn, Download Resume link. GitHub, LinkedIn, and
-     Resume links also repeat in the header nav (icon links + a Resume
-     button) so they're reachable from any scroll position, not just this
-     section — see `DESIGN.md` §5.
+   - **Hero**: positioning kicker, headline, one-paragraph lede, two CTAs
+     (View work, Read resume), and a mono strip of the core stack.
+   - **Selected work**: the two projects that carry the AI/backend case —
+     OnCallOps and CareerMate — in a wide two-column card with room for the
+     actual engineering detail, not just a one-liner.
+   - **Product work**: CoverCompass, MelCoverCompare, WearCast as a compact
+     3-up grid. Secondary by design; they are front-end product work, not
+     the thing Gene is being hired for.
+   - **Stack**: four groups (AI/LLM first), with "currently learning" kept
+     visually separate below a rule.
+   - **About**: three-paragraph background — including the two years outside
+     tech, stated plainly — beside a contact card.
 2. **Resume** (`/resume`)
-   - Name/title, Experience, Skills, Projects (recap linking back to Home),
-     Education. Optional "Download PDF" affordance (button can exist before
-     a real PDF does — wire it up when there's a résumé file to serve).
+   - Name/title, contact line, summary, Experience (with bullets and a stack
+     line per role), Skills, Other experience, Education, Training, and a
+     working "Download PDF" button serving `public/Gene_Lee_Resume.pdf`.
 
 No other pages are in scope for v1 (no blog, no case-study sub-pages, no CMS
 admin). If that changes, add a section here first rather than growing scope
@@ -35,12 +37,15 @@ silently in code.
 
 ## Content rules
 
-- **Never invent biographical facts.** Work history, job titles, company
-  names, education, dates, and contact details are all placeholders
-  (`[Add role/company]`, `[Add contact email]`, etc.) until Gene supplies the
-  real thing. See `DESIGN.md` §6 and `CLAUDE.md` for the enforced convention.
-- **Project descriptions are grounded** — pulled from each sibling repo's own
-  `README.md`, not embellished.
+- **Never invent biographical facts.** Gene's real resume content has now been
+  supplied and lives in `src/data/resume.ts` (mirroring
+  `../Resume/Gene_Resume_2026_Draft.md`), but nothing beyond what he gave may
+  be added — no new employers, dates, titles, or metrics. See `CLAUDE.md`.
+- **Project descriptions are verified against the code**, not written from
+  memory or embellished. A wrong technical claim here becomes a failed
+  interview question.
+- **No dead links.** Private repos render as a "Private repo" tag rather than
+  a link that 404s.
 - **Skills section lists real tech** used across the three sibling projects
   (React, TypeScript, Vite, styled-components, Radix UI, Zustand, Vitest,
   Playwright, ESLint) since that's independently verifiable from the repos
