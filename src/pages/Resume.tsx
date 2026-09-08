@@ -5,6 +5,8 @@ import { Button } from '../components/ui/Button'
 import { DownloadIcon } from '../components/ui/icons'
 import { summary, experience, otherExperience, education, training } from '../data/resume'
 import { skillGroups } from '../data/skills'
+import { techCategory, categoryLabels } from '../data/tech'
+import type { TechCategory } from '../data/tech'
 import { social, location } from '../data/social'
 
 const Main = styled.main`
@@ -48,12 +50,23 @@ const Role = styled.p`
 
 const ContactLine = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.space[2]} ${({ theme }) => theme.space[4]};
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space[2]};
   padding-bottom: ${({ theme }) => theme.space[6]};
   border-bottom: 1px solid ${({ theme }) => theme.color.border};
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12.5px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.color.text[3]};
+`
+
+const ContactItem = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.space[3]};
+`
+
+const ContactLabel = styled.span`
+  width: 72px;
+  flex-shrink: 0;
   color: ${({ theme }) => theme.color.text[3]};
 `
 
@@ -63,7 +76,8 @@ const Summary = styled.p`
   color: ${({ theme }) => theme.color.text[2]};
   margin: ${({ theme }) => theme.space[6]} 0 0;
   max-width: 68ch;
-  text-wrap: pretty;
+  text-align: justify;
+  hyphens: auto;
 `
 
 const Section = styled.section`
@@ -160,12 +174,11 @@ const Bullets = styled.ul`
   }
 `
 
-const StackLine = styled.p`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12.5px;
-  line-height: 1.7;
-  color: ${({ theme }) => theme.color.text[3]};
-  margin: ${({ theme }) => theme.space[4]} 0 0;
+const StackRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.space[2]};
+  margin-top: ${({ theme }) => theme.space[4]};
 `
 
 // ---- Compact rows (other experience, education, training) ---------------
@@ -216,12 +229,12 @@ const SkillRow = styled.div`
   }
 `
 
-const SkillLabel = styled.div`
+const SkillLabel = styled.div<{ $category: TechCategory }>`
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: ${({ theme }) => theme.color.accent};
+  color: ${({ theme, $category }) => theme.color.category[$category].fg};
   padding-top: 2px;
 `
 
@@ -248,14 +261,26 @@ export function Resume() {
         </TopRow>
 
         <ContactLine>
-          <span>{location}</span>
-          <a href={social.email.url}>{social.email.label}</a>
-          <a href={social.linkedin.url} target="_blank" rel="noreferrer">
-            {social.linkedin.label}
-          </a>
-          <a href={social.github.url} target="_blank" rel="noreferrer">
-            {social.github.label}
-          </a>
+          <ContactItem>
+            <ContactLabel>location</ContactLabel>
+            <span>{location}</span>
+          </ContactItem>
+          <ContactItem>
+            <ContactLabel>email</ContactLabel>
+            <a href={social.email.url}>{social.email.label}</a>
+          </ContactItem>
+          <ContactItem>
+            <ContactLabel>linkedin</ContactLabel>
+            <a href={social.linkedin.url} target="_blank" rel="noreferrer">
+              {social.linkedin.label}
+            </a>
+          </ContactItem>
+          <ContactItem>
+            <ContactLabel>github</ContactLabel>
+            <a href={social.github.url} target="_blank" rel="noreferrer">
+              {social.github.label}
+            </a>
+          </ContactItem>
         </ContactLine>
 
         <Summary>{summary}</Summary>
@@ -276,7 +301,15 @@ export function Resume() {
                   <li key={b}>{b}</li>
                 ))}
               </Bullets>
-              {role.stack && <StackLine>{role.stack}</StackLine>}
+              {role.stack && (
+                <StackRow>
+                  {role.stack.map((t) => (
+                    <Tag key={t} $category={techCategory(t)}>
+                      {t}
+                    </Tag>
+                  ))}
+                </StackRow>
+              )}
             </Role_>
           ))}
         </Section>
@@ -284,11 +317,13 @@ export function Resume() {
         <Section>
           <SectionTitle>Skills</SectionTitle>
           {skillGroups.map((group) => (
-            <SkillRow key={group.label}>
-              <SkillLabel>{group.label}</SkillLabel>
+            <SkillRow key={group.category}>
+              <SkillLabel $category={group.category}>{categoryLabels[group.category]}</SkillLabel>
               <SkillTags>
                 {group.skills.map((s) => (
-                  <Tag key={s}>{s}</Tag>
+                  <Tag key={s} $category={group.category}>
+                    {s}
+                  </Tag>
                 ))}
               </SkillTags>
             </SkillRow>

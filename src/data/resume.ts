@@ -13,8 +13,8 @@ export interface ResumeRole {
   meta: string
   period: string
   bullets: string[]
-  /** Tech line rendered in mono under the bullets. Optional. */
-  stack?: string
+  /** Technologies for this role, rendered as domain-coloured tags. */
+  stack?: string[]
 }
 
 export const summary =
@@ -37,7 +37,7 @@ export const experience: ResumeRole[] = [
       'Designed the tenant-scoped Job/Booking data schema.',
       'Worked via PR review and CI in a cross-functional team of 9.',
     ],
-    stack: 'Python · LangGraph · FastAPI · SQLAlchemy · Alembic · PostgreSQL · pytest',
+    stack: ['Python', 'LangGraph', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'pytest'],
   },
   {
     title: 'Frontend Developer',
@@ -47,7 +47,7 @@ export const experience: ResumeRole[] = [
     bullets: [
       'Delivered features against weekly client deliverables in a structured agile project; daily cross-team syncs with front-end and back-end developers.',
     ],
-    stack: 'React.js · Ant Design · Lodash · Less · React-Router · MongoDB · Docker · Postman',
+    stack: ['React.js', 'Ant Design', 'Lodash', 'Less', 'React-Router', 'MongoDB', 'Docker', 'Postman'],
   },
   {
     title: 'Web Developer',
@@ -57,7 +57,7 @@ export const experience: ResumeRole[] = [
     bullets: [
       'Built and maintained a customer ordering system, integrated PayPal for online payments, and optimised SEO on a Shopify storefront.',
     ],
-    stack: 'Next.js · Nest.js · Styled-components · Chakra UI · MongoDB · Vercel',
+    stack: ['Next.js', 'Nest.js', 'Styled-components', 'Chakra UI', 'MongoDB', 'Vercel'],
   },
 ]
 

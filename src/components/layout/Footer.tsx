@@ -172,8 +172,8 @@ export function Footer() {
           </div>
           <CtaActions>
             <Button href={social.email.url}>
-              <MailIcon />
               Get in touch
+              <MailIcon />
             </Button>
             <Button href={social.resume.url} $variant="secondary" download>
               Download resume

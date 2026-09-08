@@ -1,19 +1,20 @@
 import styled, { css } from 'styled-components'
+import type { TechCategory } from '../../data/tech'
 
-// Mono metadata chip — tech-stack items, category labels, status notes.
+// Mono metadata chip.
 //
-// The default variant carries a filled surface and a dimmer tone than body
-// copy on purpose. It previously used `text.2`, the same colour as prose,
-// which made a row of tech chips read as another line of sentence text and
-// left the section looking flat and hard to scan. Metadata should be quieter
-// than the prose it annotates, and the fill is what makes each chip read as a
-// discrete object rather than as words in a row.
+// The important variant is `$category`: a technology tag is tinted by the
+// domain it belongs to (see data/tech.ts), and the same technology carries the
+// same colour everywhere it appears. Before this, every tag was the same grey
+// and a row of them read as an undifferentiated block — the section had no
+// entry point for the eye. Colour here is a taxonomy, not decoration.
 //
-//   default   filled, dimmer than body — tech stack items
-//   accent    the one accent-coloured variant — category labels
-//   muted     dashed, no fill — states like "In development", which are
-//             information, not something to click
-export const Tag = styled.span<{ $variant?: 'accent' | 'muted' }>`
+//   $category   tinted by domain — technology tags
+//   accent      the interactive-blue variant — project category labels
+//   muted       dashed, no fill — states like "In development", which are
+//               information rather than something to click
+//   (default)   quiet grey — anything without a domain
+export const Tag = styled.span<{ $variant?: 'accent' | 'muted'; $category?: TechCategory }>`
   display: inline-block;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 12.5px;
@@ -24,6 +25,14 @@ export const Tag = styled.span<{ $variant?: 'accent' | 'muted' }>`
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.color.text[3]};
   white-space: nowrap;
+
+  ${({ $category, theme }) =>
+    $category &&
+    css`
+      color: ${theme.color.category[$category].fg};
+      background: ${theme.color.category[$category].bg};
+      border-color: ${theme.color.category[$category].border};
+    `}
 
   ${({ $variant, theme }) =>
     $variant === 'accent' &&

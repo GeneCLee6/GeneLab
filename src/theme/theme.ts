@@ -56,6 +56,26 @@ export const theme = {
     // over both `bg` and `surface`.
     accentSoft: 'rgba(108, 142, 255, 0.12)',
     accentBorder: 'rgba(108, 142, 255, 0.32)',
+
+    // ---- Category colours -------------------------------------------------
+    //
+    // Four hues, one per technology domain. These are NOT decoration and they
+    // are NOT a rotation: a given technology always renders in its domain's
+    // colour, everywhere it appears — the stack grid, project cards, and the
+    // resume. That makes the colour carry information (a reader can tell at a
+    // glance whether a tag is AI, backend, frontend or infrastructure) rather
+    // than just adding variety, which is the distinction between this and the
+    // earlier round Gene rightly called "太花了".
+    //
+    // Deliberately none of them is blue: `accent` owns blue, and interactive
+    // elements have to stay unambiguous. All four clear 8:1 on `bg`, so they
+    // are safe at tag sizes.
+    category: {
+      ai: { fg: '#B9A0FF', bg: 'rgba(185, 160, 255, 0.10)', border: 'rgba(185, 160, 255, 0.28)' },
+      backend: { fg: '#5FD3A6', bg: 'rgba(95, 211, 166, 0.10)', border: 'rgba(95, 211, 166, 0.28)' },
+      frontend: { fg: '#E8B36B', bg: 'rgba(232, 179, 107, 0.10)', border: 'rgba(232, 179, 107, 0.28)' },
+      cloud: { fg: '#EE8FA6', bg: 'rgba(238, 143, 166, 0.10)', border: 'rgba(238, 143, 166, 0.28)' },
+    },
   },
 
   font: {

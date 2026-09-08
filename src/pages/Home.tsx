@@ -9,6 +9,8 @@ import { Reveal } from '../components/ui/Reveal'
 import { ArrowIcon } from '../components/ui/icons'
 import { featuredProjects, otherProjects } from '../data/projects'
 import { skillGroups, learning } from '../data/skills'
+import { techCategory, categoryLabels } from '../data/tech'
+import type { TechCategory } from '../data/tech'
 import { social, location } from '../data/social'
 
 const Main = styled.main`
@@ -110,12 +112,9 @@ const Ctas = styled.div`
 const StackStrip = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${({ theme }) => theme.space[2]} ${({ theme }) => theme.space[5]};
+  gap: ${({ theme }) => theme.space[2]};
   padding-top: ${({ theme }) => theme.space[5]};
   border-top: 1px solid ${({ theme }) => theme.color.border};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: 13.5px;
-  color: ${({ theme }) => theme.color.text[2]};
 `
 
 // ---- Featured project cards ---------------------------------------------
@@ -262,10 +261,9 @@ const MiniText = styled.p`
 
 const MiniMeta = styled.div`
   margin-top: auto;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: ${({ theme }) => theme.color.text[3]};
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.space[2]};
 `
 
 // ---- Stack --------------------------------------------------------------
@@ -291,15 +289,17 @@ const StackGroup = styled.div`
   gap: ${({ theme }) => theme.space[3]};
 `
 
-const StackLabel = styled.h3`
+const StackLabel = styled.h3<{ $category: TechCategory }>`
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: ${({ theme }) => theme.color.accent};
+  color: ${({ theme, $category }) => theme.color.category[$category].fg};
   margin: 0;
   padding-bottom: ${({ theme }) => theme.space[3]};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border};
+  /* The rule under each label picks up the domain colour too, so the four
+     columns read as four distinct groups before a word is read. */
+  border-bottom: 1px solid ${({ theme, $category }) => theme.color.category[$category].border};
 `
 
 const StackItems = styled.ul`
@@ -307,13 +307,8 @@ const StackItems = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.space[2]};
-
-  li {
-    font-size: 15px;
-    color: ${({ theme }) => theme.color.text[2]};
-  }
 `
 
 // Learning is kept visually distinct from the shipped stack above. Merging
@@ -445,14 +440,13 @@ export function Home() {
             </Reveal>
             <Reveal delay={240}>
               <StackStrip>
-                <span>Python</span>
-                <span>LangGraph</span>
-                <span>FastAPI</span>
-                <span>TypeScript</span>
-                <span>React</span>
-                <span>Node.js</span>
-                <span>PostgreSQL</span>
-                <span>AWS</span>
+                {['LangGraph', 'Python', 'FastAPI', 'PostgreSQL', 'TypeScript', 'React', 'AWS S3', 'Docker'].map(
+                  (t) => (
+                    <Tag key={t} $category={techCategory(t)}>
+                      {t}
+                    </Tag>
+                  ),
+                )}
               </StackStrip>
             </Reveal>
           </Container>
@@ -487,7 +481,9 @@ export function Home() {
                       <CardDetail>{project.detail}</CardDetail>
                       <TagRow>
                         {project.tech.map((t) => (
-                          <Tag key={t}>{t}</Tag>
+                          <Tag key={t} $category={techCategory(t)}>
+                            {t}
+                          </Tag>
                         ))}
                       </TagRow>
                     </CardBody>
@@ -512,7 +508,13 @@ export function Home() {
                   <MiniCard>
                     <MiniName>{project.name}</MiniName>
                     <MiniText>{project.description}</MiniText>
-                    <MiniMeta>{project.tech.join(' · ')}</MiniMeta>
+                    <MiniMeta>
+                      {project.tech.map((t) => (
+                        <Tag key={t} $category={techCategory(t)}>
+                          {t}
+                        </Tag>
+                      ))}
+                    </MiniMeta>
                   </MiniCard>
                 </Reveal>
               ))}
@@ -531,11 +533,15 @@ export function Home() {
             <Reveal delay={120}>
               <StackGrid>
                 {skillGroups.map((group) => (
-                  <StackGroup key={group.label}>
-                    <StackLabel>{group.label}</StackLabel>
+                  <StackGroup key={group.category}>
+                    <StackLabel $category={group.category}>
+                      {categoryLabels[group.category]}
+                    </StackLabel>
                     <StackItems>
                       {group.skills.map((s) => (
-                        <li key={s}>{s}</li>
+                        <li key={s}>
+                          <Tag $category={group.category}>{s}</Tag>
+                        </li>
                       ))}
                     </StackItems>
                   </StackGroup>

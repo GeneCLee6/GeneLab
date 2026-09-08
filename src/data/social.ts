@@ -27,4 +27,4 @@ export const social = {
   } satisfies SocialLink,
 } as const
 
-export const location = 'Melbourne, VIC · Australian PR'
+export const location = 'Melbourne, VIC'

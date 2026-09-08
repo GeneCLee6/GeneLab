@@ -72,10 +72,38 @@ possible — raising text against a near-black base alone would have produced
 glare rather than legibility. If this ever needs adjusting again, move the
 base and the text together.
 
-**Accent budget.** Roughly one accent element per viewport. Currently: the
-emphasized phrase in the hero headline, the `Lab` in the wordmark, links,
-primary buttons, stack-group labels, and the active nav route. If a new
+**Accent budget.** `accent` (blue) is reserved for *interactive* meaning:
+links, primary buttons, the emphasized phrase in the hero headline, the `Lab`
+in the wordmark, project category labels, and the active nav route. If a new
 accent use is added, check whether an existing one should give way.
+
+### Category colours
+
+| Token | Value | Domain |
+| --- | --- | --- |
+| `category.ai` | `#B9A0FF` | AI / LLM |
+| `category.backend` | `#5FD3A6` | Backend |
+| `category.frontend` | `#E8B36B` | Frontend |
+| `category.cloud` | `#EE8FA6` | Cloud & tooling |
+
+Each has a matching 10%-alpha `bg` and 28%-alpha `border`. All four clear 8:1
+on `bg`, so they are safe at tag sizes.
+
+**This is a taxonomy, not decoration, and that distinction is the whole
+point.** `src/data/tech.ts` maps every technology to a domain, and a given
+technology renders in its domain's colour *everywhere it appears* — the hero
+strip, the stack grid, project cards, and every resume role. A reader can tell
+at a glance whether a tag is AI, backend, frontend or infrastructure without
+reading it.
+
+This is what makes it different from the earlier round Gene rejected as
+"太花了": that one gave each project card a rotating identity colour, so the
+colour meant nothing and only added noise. Colour here carries information.
+**If you add a technology anywhere, register it in `tech.ts`** — unregistered
+names silently fall back to the tooling colour and quietly break the taxonomy.
+
+None of the four is blue, deliberately: `accent` owns blue so interactive
+elements stay unambiguous against the tags.
 
 **Text on accent fills is `bg`, not white.** The accent is bright enough that
 white-on-accent falls under 3:1.
@@ -98,6 +126,11 @@ white-on-accent falls under 3:1.
 | Small body | 13.5–14.5px | 400 | — |
 | Mono eyebrow | 12px upper | 400 | 0.14em |
 | Mono metadata (tags, dates, stack) | 12.5–13.5px | 400 | — |
+
+**The resume summary is justified** (`text-align: justify` with
+`hyphens: auto`). Justification without hyphenation opens white "rivers"
+between words, which looks worse than the ragged edge it replaces — the two
+settings go together or neither does.
 
 **Measure is capped and consistent**: headline `17ch`, lede/prose/card copy
 `62ch`, resume body `68ch`. Every paragraph also sets `text-wrap: pretty`.

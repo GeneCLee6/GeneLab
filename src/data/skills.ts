@@ -1,18 +1,22 @@
-// Skills, grouped to match the resume's own grouping so the two never drift.
-// Every entry here is backed by shipped code — the AI/LLM group by OnCallOps,
-// the cloud group by CareerMate's S3/Elastic Beanstalk work and the CI
-// pipelines in the sibling repos. Nothing aspirational: things Gene is
-// currently learning belong in `learning`, labelled as such, not mixed into
-// the main list where a reader would take them as working knowledge.
+// Skills, grouped by the same domains that drive tag colour (see tech.ts) so
+// the stack section doubles as the legend for every tag elsewhere on the site.
+//
+// Every entry is backed by shipped code — the AI group by OnCallOps, the cloud
+// group by CareerMate's S3/Elastic Beanstalk work and the CI pipelines in the
+// sibling repos. Nothing aspirational: things Gene is currently learning live
+// in `learning`, labelled as such, not mixed into the main list where a reader
+// would take them as working knowledge.
+
+import type { TechCategory } from './tech'
 
 export interface SkillGroup {
-  label: string
+  category: TechCategory
   skills: string[]
 }
 
 export const skillGroups: SkillGroup[] = [
   {
-    label: 'AI / LLM',
+    category: 'ai',
     skills: [
       'LangGraph',
       'Agent runtimes',
@@ -23,15 +27,15 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    label: 'Backend',
+    category: 'backend',
     skills: ['Python', 'FastAPI', 'Node.js', 'Express', 'REST APIs', 'PostgreSQL', 'MongoDB', 'SQLAlchemy'],
   },
   {
-    label: 'Frontend',
+    category: 'frontend',
     skills: ['TypeScript', 'React', 'Next.js', 'styled-components', 'Ant Design', 'Chakra UI'],
   },
   {
-    label: 'Cloud & tooling',
+    category: 'cloud',
     skills: ['AWS S3', 'Elastic Beanstalk', 'Vercel', 'Docker', 'GitHub Actions', 'pytest', 'Playwright', 'Git'],
   },
 ]
